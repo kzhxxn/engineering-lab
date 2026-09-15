@@ -844,7 +844,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','그리고 이 구조가 유일한 답이라고 생각하지 않는다. 토큰을 쿠키에 두면 CSRF를 따로 막아야 하고, 서버가 모든 요청 경로에 끼어들면 그 자체가 단일 장애점이 된다. 여기서 고른 것은 <strong>"XSS로 세션이 통째로 넘어가는 것"을 가장 무겁게 본 결과</strong>이고, 도메인이 달랐다면 다른 답이 나왔을 것이다.'],
       ['honest','범위 밖으로 둔 것|CSRF 방어, 쿠키 속성(<code>SameSite</code>·<code>Secure</code>), 로컬 개발 환경의 쿠키 제약(운영 도메인 쿠키를 로컬에서 못 쓰는 문제), 깜빡임, 스트리밍 SSR. 마지막은 특히 <b>이미 flush된 청크를 되돌릴 수 없어</b> 경계 논의가 통째로 달라진다. BFF 한 홉의 비용(1~2ms)도 로컬 루프백이라 실제 환경을 말해주지 못한다.']
     ],meta:'Node 20 · 표준 http 모듈만 · refresh 호출 횟수는 N=1·3·10·25·50에서 결정적, 2회 반복 동일 · 2026-09-14'},
-  'ime':{grp:'프론트엔드',t:'한글만 깨지는데 영문 테스트는 다 통과한다',crumb:'Chrome · IME 조합',
+  'ime':{grp:'프론트엔드',t:'한글만 깨지는데 영문 테스트는 다 통과한다',crumb:'Chrome · IME 조합',
     lede:'이름 입력칸에서 한글이 깨진다는 제보가 들어왔다. 재현해보면 안드로이드 웹뷰 첫 입력에서 잘 난다. 그런데 <strong>테스트도 리뷰도 전부 통과한 변경</strong>이었다.',
     demo:'ime',
     body:[
@@ -980,7 +980,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['honest','여기서 잰 것과 안 잰 것|실제 번역 기능이 아니라 <b>번역기가 하는 DOM 조작</b>(텍스트 노드를 font로 감싸기)을 코드로 똑같이 했다. 실제 번역기는 속성 번역·노드 분할·비동기 적용까지 하는데 그 차이는 안 봤다. 리액트도 쓰지 않았다. 커밋 단계의 DOM 호출만 떼어냈으므로, 실제 재조정이 어떤 기준 노드를 고르는지는 버전에 따라 다를 수 있다. 광고 차단기나 비밀번호 관리자도 같은 계열일 것이라고 적었지만 <b>확인한 것은 번역 패턴 하나뿐</b>이다.']
     ],meta:'Chrome / macOS · 프레임워크 없이 DOM 호출만 · 조건이 같으면 결과도 같다(결정적) · 2026-09-15'},
 
-  'write-skew':{grp:'데이터베이스',t:'보장 한도를 넘겨 지급됐는데 잘못 승인된 건이 없다',crumb:'PostgreSQL 16 · 격리 수준',
+  'write-skew':{grp:'데이터베이스',t:'보장 한도를 넘겨 지급됐는데 잘못 승인된 건이 없다',crumb:'PostgreSQL 16 · 격리 수준',
     lede:'연간 보장 한도가 500만 원인 계약에 청구 두 건이 <strong>거의 동시에</strong> 들어왔다. 각각 300만 원. 두 건 모두 한도를 확인하고 승인됐고, 지급액은 600만 원이 됐다. 심사 로그를 뒤져도 <strong>잘못 승인된 건이 하나도 없다.</strong>',
     demo:true,
     body:[
@@ -1053,7 +1053,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','더 중요한 것은 그 위의 선택이다. <strong>동기화를 최적화하기 전에 공유를 없앨 수 있는지 본다.</strong> 스레드마다 따로 세고 마지막에 합치면 동기화가 0회다. <code>LongAdder</code>가 빠른 이유도 결국 그것을 안에서 하고 있기 때문이다.'],
       ['honest','재현하지 못한 것|명령어 재배열(JMM reordering)은 <b>3,000회를 시도했지만 한 번도 관측하지 못했다.</b> arm64의 메모리 모델이 강한 탓으로 보인다. 명세상 허용되는 동작이므로 "관측되지 않았다"를 "일어나지 않는다"로 읽어서는 안 된다. x86이 아닌 환경이나 다른 JVM에서는 다를 수 있다.']
     ],meta:'Java 17 (Zulu) · 8스레드 · 각 방법 5회 중앙값 · 2026-09-11'},
-  'ownership':{grp:'Rust',t:'같은 레이스를 빌드 단계에서 잡을 수 있나',crumb:'Rust 1.98 · 소유권',
+  'ownership':{grp:'Rust',t:'같은 레이스를 빌드 단계에서 잡을 수 있나',crumb:'Rust 1.98 · 소유권',
     lede:'앞 글에서 본 레이스는 <strong>운영에서만, 그것도 운이 나빠야</strong> 드러났다. 테스트로는 못 잡는다면 그 앞 단계: 컴파일에서 잡을 수는 없을까.',
     body:[
       ['h2','초록불이 증거가 못 된다면 무엇이 증거인가'],
@@ -1080,7 +1080,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','업무 스택을 바꾸자는 얘기가 아니다. 가져갈 것은 질문 하나다. "이 데이터는 공유되나, 변경되나, 둘 다인가." Rust는 그걸 안 적으면 컴파일을 안 해주고, Java·Kotlin·TypeScript는 안 적어도 돌아간다. <strong>돌아가는 쪽에서 그 질문을 스스로 하게 되는 것</strong>이 이 실험의 실제 소득이다.'],
       ['honest','재보지 않은 것|<code>Rc</code>/<code>RefCell</code>처럼 빌림 검사를 <b>런타임으로 미루는</b> 경우는 다루지 않았다. 그 경로를 쓰면 같은 규칙이 패닉으로 강제되는데, 그러면 다시 "돌려봐야 안다"는 자리로 돌아온다. 어디까지가 컴파일 타임 보장인지의 경계는 아직 안 그어봤다.']
     ],meta:'rustc 1.98.1 · 8스레드 × 100만 회 · cargo 없이 rustc 단독 · 2026-09-11'},
-  'oom':{grp:'Java',t:'힙을 늘렸는데 또 OOM으로 죽는다',crumb:'Java 17 · JVM 메모리',
+  'oom':{grp:'Java',t:'힙을 늘렸는데 또 OOM으로 죽는다',crumb:'Java 17 · JVM 메모리',
     lede:'배치 서버가 며칠에 한 번씩 <code>OutOfMemoryError</code>로 재기동된다. 힙을 두 배로 늘렸더니 <strong>주기만 길어지고 또 죽었다.</strong> 늘려서 될 문제가 아니라는 뜻이다.',
     body:[
       ['h2','힙을 늘려도 안 되면 총량이 원인이 아니다'],
@@ -1131,7 +1131,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['note','같은 모양의 다른 함정들|프록시를 지나야 동작하는 것은 트랜잭션만이 아니다. <code>@Cacheable</code>, <code>@Async</code>, <code>@Retryable</code>도 같은 구조라 내부 호출에서 똑같이 조용히 사라진다. <b>"애노테이션이 붙었는데 동작을 안 한다"</b>는 증상을 보면 호출 경로부터 의심하는 게 빠르다.'],
       ['honest','이것은 Spring이 아니다|JDK 동적 프록시와 리플렉션으로 <b>동작 원리만 재현</b>한 것이다. CGLIB 기반 프록시, 전파 옵션(<code>REQUIRES_NEW</code> 등), 빈 스코프와 생명주기는 구현하지 않았다. 순환 의존성은 생성자 주입에서는 기동 실패, 필드 주입에서는 통과하는 것까지만 확인했다. 실제 Spring의 동작이 이와 다른 지점이 있을 수 있다.']
     ],meta:'Java 17 (Zulu) · JDK 동적 프록시 + 리플렉션으로 미니 IoC/AOP 직접 구현 · 2026-09-11'},
-  'nplus1':{grp:'Java',t:'목록 API가 DB를 스물한 번 호출하고 있었다',crumb:'JDBC · 데이터 접근',
+  'nplus1':{grp:'Java',t:'목록 API가 DB를 스물한 번 호출하고 있었다',crumb:'JDBC · 데이터 접근',
     lede:'로컬에서는 8ms라 아무도 눈치채지 못했다. 운영에 올리자 같은 화면이 <strong>수백 ms</strong>가 됐다. 코드는 한 줄도 안 바뀌었고 데이터만 늘었다.',
     demo:'nplus1',
     body:[
@@ -1356,7 +1356,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','시나리오는 검증을 통과한 값이 인증 단계까지 들어갔던 사건에서 가져왔다. <strong>식별번호 실값과 그 구조는 쓰지 않았고</strong> 검증 방식만 일반형으로 옮겼다. 번호는 전부 무작위 생성이다.']
     ],meta:'Node 22 · 고정 시드 · 표본 20만 / 2만 · 2026-09-15'},
 
-  'dupsubmit':{grp:'프론트엔드',t:'결제 버튼을 잠갔는데 같은 건이 여러 번 만들어졌다',crumb:'Node 22 · 중복 제출',
+  'dupsubmit':{grp:'프론트엔드',t:'결제 버튼을 잠갔는데 같은 건이 여러 번 만들어졌다',crumb:'Node 22 · 중복 제출',
     lede:'제출 중에는 버튼을 비활성화하고 라벨을 "처리 중"으로 바꿔 뒀다. 그런데도 중복 건이 생겼다. 막을 방법을 하나씩 얹다 보니 층이 넷이 됐는데, <strong>얹은 것과 막힌 것이 같지 않았다.</strong>',
     body:[
       ['honest','이 글의 숫자는 언제 잰 것인가|당시에는 방어를 얹고 배포하는 데까지였다. 아래 숫자는 그 뒤 2026-09-15에 다시 돌려 얻은 값이다.'],
@@ -1428,7 +1428,9 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
         if(PAGES[k].grp!==g) return false;
         if(!term) return true;
         var p=PAGES[k];
-        return (p.t+' '+p.crumb+' '+plain(p.lede)).toLowerCase().indexOf(term)>=0;
+        // 제목에는 줄바꿈을 막으려고 넣은 U+00A0 이 섞여 있다. 검색어는 일반 공백으로
+        // 들어오므로 비교 전에 같은 공백으로 맞춘다. 안 맞추면 "여러 번"이 안 걸린다.
+        return (p.t+' '+p.crumb+' '+plain(p.lede)).replace(/\u00a0/g,' ').toLowerCase().indexOf(term)>=0;
       });
       if(!items.length) return;
       hits+=items.length;
