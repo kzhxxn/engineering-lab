@@ -177,11 +177,13 @@
   /* 주석: 박스가 아니라 왼쪽 마커 */
   .note{border-left:1.5px solid var(--amber); background:none; padding:2px 0 2px 22px;
         border-radius:0; margin:0 0 30px; font-size:16px; color:var(--ink-2); max-width:var(--read)}
-  .note b{font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; display:block;
+  /* 제목만 골라야 한다. `.note b` 로 잡으면 본문 안의 <b> 까지 제목 스타일이 먹어서
+     문장이 토막나 보인다. 제목은 언제나 첫 자식이다. */
+  .note > b:first-child{font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; display:block;
           margin-bottom:8px; color:var(--amber); font-family:var(--sans); font-weight:600}
   .honest{border-left:1.5px solid var(--line); background:none; padding:2px 0 2px 22px;
           border-radius:0; margin:0 0 30px; font-size:15.5px; color:var(--muted); max-width:var(--read)}
-  .honest b{font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; display:block;
+  .honest > b:first-child{font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; display:block;
             margin-bottom:8px; color:var(--muted); font-family:var(--sans); font-weight:600}
 
   /* ══ interactive demo: 여기만 panel ══ */
@@ -1229,6 +1231,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
     lede:'연동 규격에는 "개인 식별번호는 암호화해서 전송"이라고만 적혀 있었다. 쓰고 있던 모듈을 열어보니 <strong>mode는 ECB, IV는 빈 문자열, 키는 클라이언트 환경변수</strong>였다. 셋 다 바꿔야 하는데 무엇부터, 그리고 어디까지 바꿔야 하는지가 안 보였다.',
     stats:[{k:'같은 값 1000회 암호화',v:'고유 1개',c:'bad',d:'ECB와 고정 IV 둘 다'},{k:'CBC로 바꿔도',v:'2/3 블록 누출',c:'bad',d:'고쳐야 할 건 IV였다'},{k:'키 없이 평문 변조',v:'에러 0',c:'bad',d:'GCM은 예외로 막는다'}],
     body:[
+      ['note','이 글의 숫자는 언제 잰 것인가|당시에는 <b>ECB·빈 IV·클라이언트 키 노출</b>이 문제라는 데까지 보고 CBC로 가는 결정을 내렸다. 그 판단은 이번에 재봐도 뒤집히지 않았다. 다만 <b>고정 IV면 CBC도 접두를 흘린다</b>는 것과 <b>키 없이 평문을 바꿀 수 있다</b>는 것은 그때 몰랐다. 아래 숫자는 전부 2026-09-15에 다시 돌려 얻은 값이다.'],
       ['h2','무엇을 물어야 하나'],
       ['p','"AES-256을 쓴다"는 문장에는 <strong>모드와 IV가 빠져 있다.</strong> 빠진 자리에 무엇이 들어가느냐로 같은 AES가 안전하기도 하고 원문을 그대로 흘리기도 한다. 그래서 물을 것이 셋이었다.'],
       ['ul','지금 쓰는 방식이 정확히 무엇을 흘리고 있나|널리 퍼진 조언대로 ECB만 피하면 되나|더 나은 쪽(GCM)이 있는데 왜 현장에서는 자주 포기되나'],
@@ -1277,6 +1280,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
     lede:'프론트 검증을 통과한 값이 실명인증 요청까지 들어갔고, 사용자는 "이런 번호가 왜 되냐"고 물었다. 웹과 앱 전부 같았으니 채널별 로직 차이가 아니다. 로직 오류를 찾으러 들어갔는데 <strong>로직은 맞았다. 틀린 건 검증에 건 기대였다.</strong>',
     stats:[{k:'무작위 번호 통과율',v:'9.99%',c:'bad',d:'체크값 10가지의 역수'},{k:'그런데 오타는',v:'90~100% 검출',c:'good',d:'이쪽이 원래 목적'},{k:'Luhn 한 칸 건너 전치',v:'0.00%',c:'bad',d:'구조상 못 잡는다'}],
     body:[
+      ['note','이 글의 숫자는 언제 잰 것인가|당시에는 <b>체크섬은 실재성 검증이 아니다</b>라는 결론까지 정리하고 닫았다. 그게 이 사건의 답이었고 지금도 맞다. 다만 <b>통과율이 정확히 얼마인지</b>, 그리고 대신 <b>무엇을 잘 잡는지</b>는 재보지 않았다. 아래 숫자는 전부 2026-09-15에 다시 돌려 얻은 값이다.'],
       ['h2','무엇을 물어야 하나'],
       ['p','로직이 맞는데 결과가 틀렸다면 코드를 더 파는 대신 <strong>이 장치가 무엇을 보장하는지</strong>를 의심해야 한다.'],
       ['ul','아무렇게나 찍은 번호가 통과할 확률은 얼마인가|그럼 이 장치는 쓸모가 없나. 원래 무엇에 답하나|더 촘촘한 방식으로 바꾸면 실재성까지 답해주나'],
@@ -1317,6 +1321,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
     lede:'제출 중에는 버튼을 비활성화하고 라벨을 "처리 중"으로 바꿔 뒀다. 그런데도 중복 건이 생겼다. 막을 방법을 하나씩 얹다 보니 층이 넷이 됐는데, <strong>얹은 것과 막힌 것이 같지 않았다.</strong>',
     stats:[{k:'방어 6가지 중',v:'막은 건 2가지',c:'bad',d:'넷 중 셋은 얹혀만 있었다'},{k:'disabled 가드',v:'20건 전부 통과',c:'bad',d:'같은 틱이면 무력'},{k:'멱등키를 실어도',v:'인터셉터가 지운다',c:'bad',d:'양쪽 코드는 다 맞다'}],
     body:[
+      ['note','이 글의 숫자는 언제 잰 것인가|당시에는 방어를 네 층 얹고 <b>공통 계층이 헤더를 지우던 것</b>을 찾아 고치는 데서 끝냈다. 그 수정은 지금 재봐도 맞다. 다만 <b>어느 층이 실제로 일하고 있었는지</b>는 세어보지 않았다. 아래 숫자는 전부 2026-09-15에 다시 돌려 얻은 값이다.'],
       ['h2','무엇을 물어야 하나'],
       ['p','중복 제출 방어는 "버튼 잠그기"로 끝나는 문제로 보이는데, 실제로는 <strong>네 군데</strong>에서 갈린다. 가드를 어느 시점에 거는가, 키를 언제 만드는가, 그 키가 실제로 전달되는가, 서버가 그걸 쓰는가.'],
       ['ul','비활성화했는데 왜 뚫리나|멱등키를 실었는데 왜 안 합쳐지나|어느 층이 실제로 일하고 있는지 어떻게 구분하나'],
