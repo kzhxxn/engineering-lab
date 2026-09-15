@@ -697,6 +697,35 @@ FIG.xd='<figure><svg viewBox="0 0 620 190" role="img" aria-label="이해 게이�
   '<text x="433" y="166" text-anchor="middle" font-size="10" fill="currentColor" opacity=".6">PreToolUse 훅이 여기서 막는다</text>'+
   '</svg><figcaption>게이트는 품질 검사가 아니라 <b>속도 조절기</b>다. 막는 대상은 코드가 아니라 <b>안 읽고 넘기는 것</b>이다.</figcaption></figure>';
 
+FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입으로 기준 노드의 부모가 바뀐다">'+
+  '<defs><marker id="ar12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>'+
+  '<text x="14" y="16" font-size="10.5" fill="currentColor" opacity=".55">렌더 시점에 기억해 둔 기준 노드가, 커밋 때까지 그 자리에 있는가</text>'+
+  /* 왼쪽: 번역 없음 */
+  '<text x="16" y="44" font-size="11" fill="currentColor" opacity=".6">번역 없음</text>'+
+  '<rect x="16" y="54" width="262" height="56" rx="6" fill="none" stroke="currentColor" stroke-width="1.3" opacity=".5"/>'+
+  '<text x="30" y="74" font-size="11" fill="currentColor" opacity=".7">button</text>'+
+  '<rect x="40" y="80" width="64" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6"/>'+
+  '<text x="72" y="95" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".75">img</text>'+
+  '<rect x="116" y="80" width="78" height="22" rx="4" fill="none" stroke="#3f89ad" stroke-width="1.6"/>'+
+  '<text x="155" y="95" text-anchor="middle" font-size="10.5" fill="#3f89ad" font-weight="600">#text</text>'+
+  '<text x="147" y="126" text-anchor="middle" font-size="10" fill="#3f89ad">기준 노드 · 부모는 button</text>'+
+  '<text x="147" y="142" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">insertBefore 정상</text>'+
+  /* 오른쪽: 번역 개입 */
+  '<text x="326" y="44" font-size="11" fill="#a2453a" opacity=".8">번역 개입</text>'+
+  '<rect x="326" y="54" width="278" height="56" rx="6" fill="none" stroke="#a2453a" stroke-width="1.3"/>'+
+  '<text x="340" y="74" font-size="11" fill="currentColor" opacity=".7">button</text>'+
+  '<rect x="350" y="80" width="60" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6"/>'+
+  '<text x="380" y="95" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".75">img</text>'+
+  '<rect x="422" y="78" width="110" height="26" rx="4" fill="none" stroke="#b07d33" stroke-width="1.5"/>'+
+  '<text x="436" y="95" font-size="10.5" fill="#b07d33">font</text>'+
+  '<rect x="458" y="82" width="68" height="18" rx="3" fill="none" stroke="#a2453a" stroke-width="1.5"/>'+
+  '<text x="492" y="95" text-anchor="middle" font-size="9.5" fill="#a2453a" font-weight="600">#text</text>'+
+  '<line x1="492" y1="104" x2="492" y2="120" stroke="#a2453a" stroke-width="1.2" marker-end="url(#ar12)"/>'+
+  '<text x="465" y="136" text-anchor="middle" font-size="10" fill="#a2453a" font-weight="600">기준 노드 · 부모가 font 로 바뀜</text>'+
+  '<text x="465" y="152" text-anchor="middle" font-size="11" fill="#a2453a" font-weight="600">NotFoundError</text>'+
+  '<text x="310" y="192" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".6">타입 스왑도 번역도 각각은 멀쩡하다. 둘이 겹칠 때만 터진다.</text>'+
+  '</svg><figcaption>리액트는 렌더 시점에 기억해 둔 노드를 커밋 때 기준으로 쓴다. 그 사이에 번역기가 텍스트 노드를 <code>&lt;font&gt;</code>로 감싸면 기준의 부모가 바뀐다.</figcaption></figure>';
+
   /* ───────────────── pages ───────────────── */
   var PAGES={
   'ssr-auth':{grp:'프론트엔드',t:'토큰을 브라우저에서 숨기려면 어디까지 옮겨야 하나',crumb:'Node 20 · SSR 인증',
@@ -847,6 +876,54 @@ FIG.xd='<figure><svg viewBox="0 0 620 190" role="img" aria-label="이해 게이�
       ['p','그리고 <strong>작성자 본인에게만</strong> 걸린다. 남의 PR을 리뷰할 때 어떻게 끼울지는 정하지 않았다. 혼자 작업하는 지금은 이걸로 충분하지만, 서로의 PR을 리뷰하는 흐름이 되면 다시 볼 지점이다.'],
       ['honest','우회할 수 있다|훅은 에이전트의 도구 호출을 막는 것이지 사람이 직접 치는 <code>git push --no-verify</code>를 막지 못한다. 서버 쪽 검사로 보완해야 하는데 아직 안 했다. 애초에 <b>스스로에게 거는 장치</b>라 우회를 막는 데 힘을 쓸 이유가 크지 않기도 하다.']
     ],meta:'Python stdlib만 · 임시 저장소로 11개 경로 검증 · 원 아이디어: <a href="https://gist.github.com/geoffreylitt/a29df1b5f9865506e8952488eac3d524" target="_blank" rel="noopener noreferrer">Geoffrey Litt, explain-diff</a> · 2026-09-15'},
+
+  'dom':{grp:'프론트엔드',t:'체크박스를 눌렀더니 화면 전체가 날아갔다',crumb:'Chrome · DOM 개입',
+    lede:'입력하던 값까지 통째로 사라진다. 그런데 <strong>재현이 안 된다.</strong> 같은 버튼을 아무리 눌러도 멀쩡하다. 조건이 하나 더 있었고, 그건 우리 코드 밖에 있었다.',
+    stats:[{k:'재현되는 조합',v:'4 중 1',c:'bad',d:'둘이 겹칠 때만'},{k:'고치는 법',v:'한 겹 감싸기',c:'good',d:'span 하나'},{k:'경계가 루트면',v:'전부 소실',c:'bad',d:'섹션 경계면 하나'}],
+    demo:'dom',
+    body:[
+      ['h2','무엇을 물어야 하나'],
+      ['p','에러는 <code>NotFoundError</code>다. 메시지는 "삽입 기준이 될 노드가 이 노드의 자식이 아니다". 우리 코드에는 그런 짓을 하는 곳이 없다. 그렇다면 <strong>누가 그 노드를 옮겼나.</strong>'],
+      ['ul','재현이 왜 안 되나. 조건이 몇 개인가|기준 노드를 옮긴 것은 무엇인가|왜 아이콘 하나 실패가 <strong>화면 전체</strong>를 지우나'],
+
+      ['h2','프레임워크가 하는 가정'],
+      ['p','리액트가 엘리먼트 타입을 바꿀 때(예: <code>&lt;img&gt;</code>를 <code>&lt;svg&gt;</code>로) 커밋 단계에서 하는 일의 핵심은 한 줄이다.'],
+      ['pre','parent.insertBefore(새노드, 기준노드)'],
+      ['p','중요한 것은 <strong>기준 노드를 렌더 시점에 기억해 둔다</strong>는 점이다. 커밋할 때 다시 찾지 않는다. 다시 찾을 이유가 없기 때문이다. <strong>그 사이에 DOM을 바꾸는 건 자기뿐</strong>이라고 가정하니까.'],
+      ['p','그 가정이 깨지는 순간이 있다.'],
+      ['fig','dom'],
+
+      ['h2','조건이 둘이고, 하나는 우리 것이 아니다'],
+      ['p','브라우저 번역은 텍스트 노드를 <code>&lt;font&gt;</code>로 감싼다. 그 순간 <strong>기준 노드의 부모가 button에서 font로 바뀐다.</strong> 리액트는 그걸 모르고 원래 기준으로 삽입을 시도한다.'],
+      ['demo','두 조건을 각각 켜보기'],
+      ['tbl','타입 스왑|번역 개입|기준 노드의 부모|결과;✗|✗|button|해당 없음;✗|✓|<b>font</b>|해당 없음;✓|✗|button|정상;✓|✓|<b>font</b>|<b>NotFoundError</b>'],
+      ['p','<strong>대조군이 멀쩡한 게 핵심이다.</strong> 타입 스왑만으로는 안 터지고, 번역만으로도 안 터진다. 번역이 노드를 옮긴 <strong>뒤에</strong> 그 기준으로 삽입할 때만 터진다.'],
+      ['p','그래서 재현이 안 됐던 것이다. 재현 절차에 <strong>"번역을 켠 채로"</strong>가 없으면 영원히 못 잡는다. 그리고 이건 우리가 쓰는 코드가 아니라 <strong>사용자가 켠 것</strong>이라 코드베이스 어디에도 흔적이 없다.'],
+
+      ['h2','같은 결함이 두 이슈로 흩어진다'],
+      ['p','커밋 방식만 바꿔 같은 상황을 재봤다.'],
+      ['tbl','커밋 방식|에러;insertBefore|NotFoundError: ... is not a child of this node;removeChild|NotFoundError: ... The node to be removed is not a child of this node'],
+      ['p','메시지가 다르다. 브라우저 엔진에 따라 어느 쪽이 나오는지도 갈린다. 그런데 <strong>원인은 하나</strong>다. 기준 노드가 이미 옮겨졌다.'],
+      ['note','빈도가 낮아 보이는 이유|에러 추적기는 메시지로 묶는다. 그러면 같은 결함이 <b>여러 이슈로 흩어져</b> 각각은 드문 것처럼 보인다. 합쳐 보기 전에는 우선순위가 낮게 잡힌다. "이 에러가 몇 건인가"를 묻기 전에 <b>"같은 원인인 다른 메시지가 있나"</b>를 먼저 물어야 하는 경우다.'],
+
+      ['h2','한 겹 감싸면 경계가 생긴다'],
+      ['tbl','라벨|자식 구성|기준 노드의 부모|결과;맨몸 텍스트|img, font|font (옮겨짐)|NotFoundError;&lt;span&gt;으로 감쌈|svg, span|<b>button (그대로)</b>|정상'],
+      ['p','번역은 <code>&lt;span&gt;</code> <strong>안쪽</strong> 텍스트를 감싼다. 기준 노드인 <code>&lt;span&gt;</code>은 여전히 버튼의 직계 자식이라 삽입이 성공한다. <strong>외부가 건드리는 층과 프레임워크가 기준으로 삼는 층을 분리</strong>한 것이다.'],
+      ['p','다른 방법들도 재봤다.'],
+      ['tbl','방법|되나|비용;라벨을 span으로 감싼다|✓|없음. DOM 한 겹;translate="no"|✓|그 부분이 번역되지 않는다;&lt;html lang&gt; 지정|부분적|오탐을 줄일 뿐, 켜면 그대로;타입 스왑을 없앤다(CSS 토글)|✓|아이콘 두 개를 항상 그린다;key를 준다|<b>✗</b>|기준 노드 문제라 형제 key로 안 풀린다'],
+      ['p','마지막 줄이 중요하다. <strong>리스트 렌더에서 배운 반사신경이 여기서는 안 통한다.</strong> key는 형제 중 무엇을 재사용할지의 문제고, 이건 기준 노드가 어디 있느냐의 문제다.'],
+
+      ['h2','왜 화면 전체가 날아갔나'],
+      ['p','에러 경계를 어디에 뒀느냐가 정한다.'],
+      ['tbl','경계|한 번의 실패로 사라지는 것;루트 단일|<b>4개 섹션 전부</b>;섹션 단위|1개 섹션'],
+      ['p','아이콘 하나를 못 바꾼 실패가 화면 전체를 폴백으로 바꾼다. <strong>입력해 둔 값도 같이 사라진다.</strong> 그리고 경계가 경로를 기준으로 리셋된다면, 같은 화면으로 돌아와도 리셋이 안 걸려서 사용자는 빠져나갈 길이 없다.'],
+      ['p','경계 위치는 평소에 티가 안 난다. 이런 순간에만 드러나고, 그때는 이미 늦다.'],
+
+      ['h2','그래서 무엇을 남기나'],
+      ['p','고치는 법보다 오래 남는 것은 <strong>가정을 의식하는 습관</strong>이다. 프레임워크는 자기가 DOM의 유일한 주인이라고 가정한다. 그 가정 밖에 있는 것들이 있다. 브라우저 번역, 광고 차단기, 접근성 확장, 비밀번호 관리자. 전부 <strong>사용자가 켠 것</strong>이고 우리 코드에는 흔적이 없다.'],
+      ['p','그리고 <strong>단독으로 재현되지 않는 버그가 있다</strong>는 것. 조건이 둘 이상이면 각각은 멀쩡하다. 재현 절차에 "어떤 상태로"가 빠져 있으면 "재현 불가"로 닫히고 다시 돌아온다.'],
+      ['honest','여기서 잰 것과 안 잰 것|실제 번역 기능이 아니라 <b>번역기가 하는 DOM 조작</b>(텍스트 노드를 font로 감싸기)을 코드로 똑같이 했다. 실제 번역기는 속성 번역·노드 분할·비동기 적용까지 하는데 그 차이는 안 봤다. 리액트도 쓰지 않았다. 커밋 단계의 DOM 호출만 떼어냈으므로, 실제 재조정이 어떤 기준 노드를 고르는지는 버전에 따라 다를 수 있다. 광고 차단기나 비밀번호 관리자도 같은 계열일 것이라고 적었지만 <b>확인한 것은 번역 패턴 하나뿐</b>이다.']
+    ],meta:'Chrome / macOS · 프레임워크 없이 DOM 호출만 · 조건이 같으면 결과도 같다(결정적) · 2026-09-15'},
 
   'write-skew':{grp:'데이터베이스',t:'보장 한도를 넘겨 지급됐는데 잘못 승인된 건이 없다',crumb:'PostgreSQL 16 · 격리 수준',
     lede:'연간 보장 한도가 500만 원인 계약에 청구 두 건이 <strong>거의 동시에</strong> 들어왔다. 각각 300만 원. 두 건 모두 한도를 확인하고 승인됐고, 지급액은 600만 원이 됐다. 심사 로그를 뒤져도 <strong>잘못 승인된 건이 하나도 없다.</strong>',
@@ -1150,7 +1227,7 @@ FIG.xd='<figure><svg viewBox="0 0 620 190" role="img" aria-label="이해 게이�
     ],meta:'POSIX sh · git core.hooksPath · GitHub Actions와 동일 스크립트 공유 · 2026-09-11'}
   };
 
-  var ORDER=['ssr-auth','ime','write-skew','index','wal','tuning','oom','race','self-invocation','nplus1','ownership','gate','xd'];
+  var ORDER=['ssr-auth','ime','dom','write-skew','index','wal','tuning','oom','race','self-invocation','nplus1','ownership','gate','xd'];
   var GRPS=['프론트엔드','데이터베이스','Java','Rust','도구'];
   var HOME='home';
 
@@ -1212,7 +1289,7 @@ FIG.xd='<figure><svg viewBox="0 0 620 190" role="img" aria-label="이해 게이�
       '<strong>재현되지 않은 것은 "재현 안 됨"으로 그대로 남겼다.</strong></p></div>';
 
     h+='<div class="strip">'+
-      '<div class="stat acc"><span class="k">실험 기록</span><span class="v acc">'+ORDER.length+'</span><span class="d">FE 2 · DB 4 · Java 4 · Rust 1 · 도구 1</span></div>'+
+      '<div class="stat acc"><span class="k">실험 기록</span><span class="v acc">'+ORDER.length+'</span><span class="d">FE 3 · DB 4 · Java 4 · Rust 1 · 도구 2</span></div>'+
       '<div class="stat good"><span class="k">인터랙티브</span><span class="v good">'+live+'</span><span class="d">직접 조작 가능한 데모</span></div>'+
       '<div class="stat"><span class="k">의존성</span><span class="v">0</span><span class="d">단일 HTML · CDN 없음</span></div>'+
       '<div class="stat"><span class="k">가장 많이 재본 것</span><span class="v">11가지</span><span class="d">write skew 막는 방법</span></div>'+
@@ -1897,6 +1974,79 @@ FIG.xd='<figure><svg viewBox="0 0 620 190" role="img" aria-label="이해 게이�
           }
         };
       });
+    }
+  };
+
+  /* ═══════════════════ 데모 8: 타입 스왑 × 번역 개입 ═══════════════════
+     실제 DOM 호출로 잰 4조합. 시뮬레이션이 아니라 같은 insertBefore 다.
+     결과는 결정적이라(조건이 같으면 항상 같음) 그대로 재생한다. */
+  var DOM_CASES={};
+  ['00','01','10','11'].forEach(function(k){
+    var swap=k[0]==='1', tr=k[1]==='1';
+    DOM_CASES[k]={
+      swap:swap, tr:tr,
+      shape: tr?'img, font':'img, #text',
+      refParent: tr?'font (옮겨짐)':'button (그대로)',
+      result: (swap&&tr)?'NotFoundError':(swap?'정상':'해당 없음'),
+      err:(swap&&tr)?"Failed to execute 'insertBefore' on 'Node': The node before which the new node is to be inserted is not a child of this node.":null
+    };
+  });
+
+  DEMOS['dom']={
+    html:function(){
+      return '<div class="demo">'+
+        '<div class="ctrls">'+
+          '<div class="field"><label id="dm-a">아이콘 타입을 바꾸나</label><div class="seg" role="group" aria-labelledby="dm-a">'+
+            '<button data-g="swap" data-v="0" aria-pressed="true">안 바꿈</button>'+
+            '<button data-g="swap" data-v="1" aria-pressed="false">img → svg</button>'+
+          '</div></div>'+
+          '<div class="field"><label id="dm-b">브라우저 번역이 켜져 있나</label><div class="seg" role="group" aria-labelledby="dm-b">'+
+            '<button data-g="tr" data-v="0" aria-pressed="true">꺼짐</button>'+
+            '<button data-g="tr" data-v="1" aria-pressed="false">켜짐</button>'+
+          '</div></div>'+
+        '</div>'+
+        '<div class="cards">'+
+          '<div class="card"><h3>button의 자식</h3><div id="dm-shape" style="font-family:var(--mono);font-size:13px"></div><div class="hint">번역이 텍스트를 감싸면 바뀐다</div></div>'+
+          '<div class="card"><h3>기준 노드의 부모</h3><div id="dm-ref" style="font-family:var(--mono);font-size:13px"></div><div class="hint">렌더 때 기억해 둔 그 노드</div></div>'+
+        '</div>'+
+        '<div class="log" id="dm-log"></div>'+
+        '<div class="verdict pending" id="dm-v"></div>'+
+      '</div>';
+    },
+    init:function(){
+      var swap='0', tr='0';
+      function paint(){
+        var c=DOM_CASES[swap+tr];
+        $('dm-shape').textContent=c.shape;
+        $('dm-ref').innerHTML='<span style="color:var(--'+(c.tr?'danger':'ink')+')">'+c.refParent+'</span>';
+        var L=[];
+        L.push({c:'l-dim', s:'// 렌더: 기준 노드를 기억해 둔다'});
+        L.push({c:'l-t1',  s:'const ref = button.childNodes[1]'});
+        if(c.tr){ L.push({c:'l-dim', s:'// 번역기가 텍스트 노드를 감싼다'});
+                  L.push({c:'l-t2',  s:'font.appendChild(textNode)'}); }
+        if(c.swap){ L.push({c:'l-dim', s:'// 커밋: 기억해 둔 기준으로 삽입'});
+                    L.push({c:c.err?'l-err':'l-ok', s:'button.insertBefore(svg, ref)'}); }
+        if(c.err) L.push({c:'l-err', s:'✕ NotFoundError'});
+        $('dm-log').innerHTML=L.map(function(x){return '<div class="'+x.c+'">'+x.s+'</div>'}).join('');
+        var v=$('dm-v');
+        if(c.err){ v.className='verdict violate';
+          v.innerHTML='<div><b>NotFoundError</b>'+c.err+'</div>'; }
+        else if(c.swap&&!c.tr){ v.className='verdict safe';
+          v.innerHTML='<div><b>정상</b>타입 스왑만으로는 안 터진다. 기준 노드가 여전히 button의 직계 자식이다.</div>'; }
+        else if(!c.swap&&c.tr){ v.className='verdict safe';
+          v.innerHTML='<div><b>아무 일도 없다</b>번역만으로는 안 터진다. 기준 노드의 부모가 바뀌었지만 <strong>그 기준을 쓰는 코드가 안 돈다.</strong></div>'; }
+        else { v.className='verdict pending';
+          v.innerHTML='<div><b>대기</b>두 조건을 각각 켜보고, 마지막에 둘 다 켜보자.</div>'; }
+      }
+      [].forEach.call($('dm-log').parentNode.querySelectorAll('.seg button'),function(b){
+        b.onclick=function(){
+          var g=this.getAttribute('data-g'), v=this.getAttribute('data-v');
+          if(g==='swap') swap=v; else tr=v;
+          [].forEach.call(this.parentNode.children,function(x){x.setAttribute('aria-pressed',String(x===b))});
+          paint();
+        };
+      });
+      paint();
     }
   };
 
