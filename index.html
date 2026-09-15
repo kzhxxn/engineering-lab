@@ -142,6 +142,19 @@
   main.solo .art{grid-row:auto}
   .topbar{display:none}
 
+  /* ══ 처음 온 사람을 위한 세 편 ══ */
+  .first{margin:0 0 var(--sec); max-width:var(--col)}
+  .first .lbl{font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--muted);
+              font-family:var(--sans); font-weight:600; padding-bottom:12px;
+              border-bottom:1px solid var(--line-2); display:block}
+  .first a{display:block; padding:16px 0; border-bottom:1px solid var(--line-2);
+           text-decoration:none; color:inherit}
+  .first a:last-child{border-bottom:0}
+  .first .t{display:block; font-size:17px; font-weight:600; letter-spacing:-.022em;
+            color:var(--ink); transition:color .15s}
+  .first a:hover .t{color:var(--steel)}
+  .first .why{display:block; font-size:14.5px; color:var(--muted); line-height:1.65; margin-top:5px}
+
   /* ══ 목차 ══ */
     /* -1 은 명시적 행이 있을 때만 마지막 줄을 가리킨다. 여기는 전부 암시적 행이라
      1 / -1 이 1행으로 접히고, 그러면 목차 높이만큼 1행이 늘어나 수치가 밀린다. */
@@ -1382,11 +1395,13 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','통과율이 <strong>체크값 가짓수의 역수로 정확히 떨어진다.</strong> 알고리즘의 정교함과는 무관하다. mod-11과 Luhn은 설계가 전혀 다른데 통과율이 같고, 이유는 둘 다 체크값이 10가지라서다.'],
       ['p','13자리 번호 공간 가운데 10분의 1이 검증을 통과한다. 실제로 발급된 번호가 아무리 많아도 자릿수가 한참 아래다. "검증을 통과했으니 실재한다"고 읽으면 거의 전부를 실재로 착각하는 셈이다.'],
 
+            ['p','여기 쓴 "1만분의 1"은 번호 공간과 발급 규모의 자릿수로 낸 어림이지 측정이 아니다. 실제 발급 번호의 분포는 모르고, 구조 때문에 유효 공간이 더 좁으면 실재 비율은 올라간다. 방향은 맞지만 값은 대략이다.'],
       ['h2','대신 오타는 거의 다 잡는다'],
       ['p','유효한 번호에 오타를 내고 검증이 잡아내는 비율을 쟀다.'],
       ['tbl','오타 유형|mod-11|Luhn|mod-97;한 자리 잘못 누름|98.32%|<b>100.00%</b>|<b>100.00%</b>;인접 두 자리 바꿔 누름|97.92%|97.73%|<b>100.00%</b>;한 칸 건너 두 자리 바꿔 누름|97.89%|<b>0.00%</b>|<b>100.00%</b>;두 자리 잘못 누름|89.34%|89.81%|99.27%'],
       ['p','무작위 값은 10개 중 1개를 통과시키면서 오타는 90에서 100퍼센트까지 잡는다. 이게 체크 디짓의 정체다. 사람이 손으로 옮겨 적다 틀리는 것을 잡으려고 만들어졌고 그 일은 아주 잘한다. <strong>문제는 아무도 그 질문을 하지 않았다는 것이다.</strong>'],
 
+            ['p','사람이 실제로 내는 오타 분포는 쓰지 않았다. 네 유형을 균등하게 뽑았는데 현실에서는 인접 전치가 훨씬 드물다. 유형별 빈도를 넣으면 종합 검출률은 달라진다.'],
       ['h2','표에서 두 칸이 이론과 달랐다'],
       ['p','mod-11은 이론상 한 자리 오류를 전부 잡아야 한다. 11이 소수라 가중치와 변화량의 곱이 11의 배수가 될 수 없기 때문이다. 그런데 98.32%가 나왔다. 실제 구현이 <code>(11 - sum%11) % 10</code>을 쓰기 때문이었다. 뒤의 <code>% 10</code>은 체크값이 10이 나오는 걸 피하려고 붙는다.'],
       ['tbl','체크값|이 값을 내는 가중합|겹침;0|sum%11=1|없음;<b>1</b>|<b>sum%11=0, sum%11=10</b>|<b>있음</b>;2|sum%11=9|없음'],
@@ -1400,8 +1415,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','체크 디짓은 입력 실수를 잡는 자리에 두고, 실재성 판단은 발급 기관 응답에만 맡긴다. 둘을 같은 자리에 두면 앞의 답을 뒤의 답으로 읽게 된다. 이번 건에서 실제로 고친 것도 프론트 검증이 아니라 가입을 확정하는 지점이었다.'],
       ['p','통과율을 더 낮추고 싶다면 알고리즘이 아니라 체크값 가짓수를 키워야 한다. mod-97로 가면 10분의 1이 100분의 1이 된다. 다만 <strong>아무리 키워도 실재성은 나오지 않는다.</strong> 1%도 여전히 어마어마한 수의 가짜를 통과시킨다.'],
 
-      ['h2','재보지 않은 것'],
-      ['honest','한계|<b>실제 발급 번호의 분포는 모른다.</b> 번호 공간과 발급 규모의 자릿수로 낸 어림이지 측정이 아니다. 실제로는 구조 때문에 유효 공간이 더 좁고 그만큼 실재 비율은 올라간다. 방향은 맞지만 값은 대략이다. <b>사람이 실제로 내는 오타 분포도 쓰지 않았다.</b> 네 유형을 균등하게 뽑았는데 현실에서는 인접 전치가 훨씬 드물다. <b>mod-97이 항상 낫다고도 말할 수 없다.</b> 체크값 2자리를 더 쓰는 비용이 있고 사람이 불러주기 어려운 형식이 된다. 여기서는 검출력만 쟀다.'],
+            ['p','그렇다고 mod-97이 항상 낫다고 말할 수는 없다. 체크값 두 자리를 더 쓰는 비용이 있고 사람이 불러주기 어려운 형식이 된다. 여기서는 검출력만 쟀다.'],
       ['p','시나리오는 검증을 통과한 값이 인증 단계까지 들어갔던 사건에서 가져왔다. <strong>식별번호 실값과 그 구조는 쓰지 않았고</strong> 검증 방식만 일반형으로 옮겼다. 번호는 전부 무작위 생성이다.']
     ],meta:'Node 22 · 고정 시드 · 표본 20만 / 2만 · 2026-09-15'},
 
@@ -1429,6 +1443,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['pre','if (!busy) {\n  queueMicrotask(() => { busy = true; });   // 지금이 아니라 다음 틱에 켜진다\n  send();\n}\n\nif (!locked) { locked = true; send(); }     // 검사와 설정 사이에 아무것도 못 끼어든다'],
       ['honest','재현 코드가 재현하려던 조건을 지웠다|처음에 이 랩을 짤 때 클릭 사이마다 <code>await</code>를 걸었더니 상태 가드가 <b>막는 것으로 나왔다.</b> <code>await</code>가 그 자리에서 마이크로태스크를 흘려보내서 "아직 반영 전"이라는 상황 자체를 없앤 것이다. <code>await null</code>도 똑같이 한 틱을 넘긴다. 그래서 이 랩은 간격이 0이면 <code>await</code>를 아예 실행하지 않는다.'],
 
+            ['p','다만 실제 브라우저 클릭으로 재현한 것은 아니다. 클릭 버스트를 코드로 만들었고 상태 반영을 마이크로태스크로 모형화했다. 브라우저에서는 클릭마다 별도 태스크라 보통은 리렌더가 먼저 끝나고, 창이 열리는 건 이벤트가 몰리거나 렌더가 늦을 때다. 실제 리액트에서 그 창이 얼마나 넓은지는 재지 않았다.'],
       ['h2','멱등키를 실었는데 서버에 안 닿았다'],
       ['p','<strong>키를 요청마다 새로 만들면</strong> 스무 번의 요청이 스무 개의 키를 들고 간다. 서버는 전부 다른 요청으로 본다. 키는 "이 요청"이 아니라 "이 시도"에 붙어야 하고, 시도는 클릭 시점에 시작된다.'],
       ['p','인터셉터가 헤더를 덮어쓰면 키가 전달되지 않는다.'],
@@ -1439,8 +1454,8 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','두 층을 같이 둔다. 동기적으로 잠그는 것은 요청이 나가는 것 자체를 줄이고, 멱등키는 그것이 뚫렸을 때 결과를 합친다. 하나만 두면 각자 못 막는 구간이 남는다.'],
       ['p','그리고 키는 클릭 시점에 한 번 만들고, 공통 계층이 그 키를 지우지 않는지 확인한다. 이 확인은 코드 리뷰로는 잘 안 걸리고 <strong>실제로 요청을 세어봐야</strong> 나온다.'],
 
-      ['h2','재보지 않은 것'],
-      ['honest','한계|<b>실제 브라우저 클릭으로 재현한 것이 아니다.</b> 클릭 버스트를 코드로 만들었고 상태 반영을 마이크로태스크로 모형화했다. 실제 리액트에서 이 창이 얼마나 넓은지는 재지 않았다. 브라우저에서는 클릭마다 별도 태스크라 보통은 리렌더가 먼저 끝나고, 창이 열리는 건 이벤트가 몰리거나 렌더가 늦을 때다. <b>탭이 여러 개일 때도 재지 않았다.</b> 동기 잠금은 한 문서 안에서만 유효하고 그때 남는 방어는 멱등키뿐인데, 이건 논리적 귀결이고 재보지 않았다. <b>서버 멱등 저장소를 메모리에 뒀다.</b> 인스턴스가 여러 대면 키를 공유해야 하는데 그 구성은 만들지 않았다. SSR 인증 랩에서 갱신 합치기가 인스턴스를 넘지 못한 것과 같은 한계다. <b>재시도와 타임아웃도 섞지 않았다.</b>'],
+            ['p','두 층을 같이 둬도 재보지 않은 구간이 남는다. 동기 잠금은 한 문서 안에서만 유효해서 탭이 두 개면 각자 통과하고, 그때 남는 방어는 멱등키뿐이다. 이건 논리적 귀결이고 실제로 재지는 않았다. 그리고 이 랩의 멱등 저장소는 메모리에 있다. 인스턴스가 여러 대면 키를 공유해야 하는데 그 구성은 만들지 않았고, SSR 인증 랩에서 갱신 합치기가 인스턴스를 못 넘은 것과 같은 한계다.'],
+            ['p','재시도와 타임아웃도 섞지 않았다. 네트워크 실패 뒤 자동 재시도가 있을 때 키를 유지할지 새로 뽑을지가 실제로는 더 까다로운데, 여기서는 연타만 다뤘다.'],
       ['p','시나리오는 결제 직전 단계에서 반복 클릭으로 중복 요청이 나가던 상황에서 가져왔다. API 경로와 화면 이름은 쓰지 않았고 방어 방식만 일반형으로 옮겼다.']
     ],meta:'Node 22 · node:http · curl로 확인 가능 · 2026-09-15'}
 
@@ -1448,6 +1463,12 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
 
   var ORDER=['ssr-auth','ime','dom','dupsubmit','write-skew','index','wal','tuning','oom','race','self-invocation','nplus1','ownership','cipher','checkdigit','gate','xd'];
   var GRPS=['프론트엔드','데이터베이스','Java','Rust','보안·검증','도구'];
+  // 처음이라면 읽을 세 편. 깊이·폭·실무를 하나씩.
+  var FIRST=[
+    ['index','비용 모델을 그대로 옮겨 전환점을 예측하고, 식을 뒤집어 이 환경의 설정값을 되찾는다'],
+    ['write-skew','막는 방법 열한 가지를 같은 조건에서 재봤고, 널리 쓰이는 통념 두 개가 틀린 것으로 나왔다'],
+    ['cipher','ECB를 피하라는 조언을 그대로 따라도 2/3 블록이 계속 샌다']
+  ];
   var HOME='home';
 
   /* 데모 레지스트리: 페이지의 demo 키로 조회. true는 레거시(write-skew) */
@@ -1509,8 +1530,19 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       '여기 있는 수치는 인용이 아니라 <strong>직접 돌려서 나온 값</strong>이고, '+
       '<strong>재현되지 않은 것은 "재현 안 됨"으로 그대로 남겼다.</strong></p></div>';
 
+    // 처음 온 사람은 어디부터 읽을지 모른다. 열일곱 편을 고르게 늘어놓는 것보다
+    // 셋을 가리키는 편이 낫다. 깊이 하나, 폭 하나, 실무 하나로 골랐다.
+    h+='<div class="first"><span class="lbl">처음이라면</span>'+FIRST.map(function(f){
+      return '<a href="#'+f[0]+'"><span class="t">'+esc(PAGES[f[0]].t)+'</span>'+
+             '<span class="why">'+f[1]+'</span></a>';
+    }).join('')+'</div>';
+
+    var mix=GRPS.map(function(g){
+      var n=ORDER.filter(function(k){return PAGES[k].grp===g}).length;
+      return n?g+' '+n:null;
+    }).filter(Boolean).join(' · ');
     h+='<div class="strip">'+
-      '<div class="stat acc"><span class="k">실험 기록</span><span class="v acc">'+ORDER.length+'</span><span class="d">FE 3 · DB 4 · Java 4 · Rust 1 · 도구 2</span></div>'+
+      '<div class="stat acc"><span class="k">실험 기록</span><span class="v acc">'+ORDER.length+'</span><span class="d">'+mix+'</span></div>'+
       '<div class="stat good"><span class="k">인터랙티브</span><span class="v good">'+live+'</span><span class="d">직접 조작 가능한 데모</span></div>'+
       '<div class="stat"><span class="k">의존성</span><span class="v">0</span><span class="d">단일 HTML · CDN 없음</span></div>'+
       '<div class="stat"><span class="k">가장 많이 재본 것</span><span class="v">11가지</span><span class="d">write skew 막는 방법</span></div>'+
@@ -1520,14 +1552,13 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       var items=ORDER.filter(function(k){return PAGES[k].grp===g});
       if(!items.length) return;
       h+='<section class="gsec"><h2>'+g+'</h2><div class="tiles">'+items.map(function(k){
-        var p=PAGES[k], s=p.stats&&p.stats[0];
+        var p=PAGES[k];
         return '<a class="tile" href="#'+k+'">'+
           '<span class="ix">'+('0'+(ORDER.indexOf(k)+1)).slice(-2)+'</span>'+
           '<span><span class="tt">'+esc(p.t)+'</span>'+
           '<span class="td">'+esc(plain(p.lede))+'</span>'+
           '<span class="tm">'+
             '<span class="pill">'+esc(p.crumb.split('·')[0].trim())+'</span>'+
-            (s?'<span class="pill num">'+esc(s.k)+' '+esc(plain(s.v))+'</span>':'')+
             (p.demo?'<span class="pill live">직접 조작</span>':'')+
           '</span></span></a>';
       }).join('')+'</div></section>';
