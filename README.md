@@ -70,7 +70,8 @@ Apple Silicon macOS. 벤치마크는 `jit=off` 고정, 시간 값은 5회 중앙
 
 실험 **시나리오** 중 일부는 교과서의 표준 예제를 따랐다. **측정치는 전부 직접 실행한 값이다.**
 
-- write skew의 당직표 시나리오: Martin Kleppmann, *Designing Data-Intensive Applications*
+- write skew의 당직표 시나리오: [Martin Kleppmann, *Designing Data-Intensive Applications*](https://dataintensive.net/)
+- 이해 게이트의 방법론: [Geoffrey Litt, `explain-diff`](https://gist.github.com/geoffreylitt/a29df1b5f9865506e8952488eac3d524)
 
 ---
 

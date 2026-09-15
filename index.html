@@ -816,7 +816,7 @@ FIG.xd='<figure><svg viewBox="0 0 620 190" role="img" aria-label="이해 게이�
       ['h2','무엇을 물어야 하나'],
       ['p','"AI가 짠 코드를 리뷰해야 한다"는 말은 흔한데, 그 리뷰를 <strong>같은 에이전트에게 맡기면</strong> 검증으로도 약하고 내 이해도 안 쌓인다. 그렇다고 사람이 전부 읽는 건 속도를 포기하는 것이다. 물을 것은 셋이다.'],
       ['ul','읽었는지를 <strong>어떻게 판정</strong>하나. 본인이 "읽었다"고 하면 끝인가|판정 상태를 어디에 두나. 브랜치를 여러 개 동시에 띄우는데|그 게이트가 <strong>정말 막는지</strong>는 어떻게 아나'],
-      ['p','Geoffrey Litt의 <code>explain-diff</code>가 출발점이다. 그의 전환점은 이거였다. AI 시대의 이해는 <strong>"맞나 틀리나를 검증하기 위한 것"이 아니라 "능동적 창작자로 루프 안에 남기 위한 것"</strong>이다. 그래서 게이트의 목적도 품질 검사가 아니라 <strong>속도 조절</strong>이 된다.'],
+      ['p','<a href="https://gist.github.com/geoffreylitt/a29df1b5f9865506e8952488eac3d524" target="_blank" rel="noopener noreferrer">Geoffrey Litt</a>의 <code>explain-diff</code>가 출발점이다. 그의 전환점은 이거였다. AI 시대의 이해는 <strong>"맞나 틀리나를 검증하기 위한 것"이 아니라 "능동적 창작자로 루프 안에 남기 위한 것"</strong>이다. 그래서 게이트의 목적도 품질 검사가 아니라 <strong>속도 조절</strong>이 된다.'],
 
       ['h2','무엇을 만들었나'],
       ['fig','xd'],
@@ -846,7 +846,7 @@ FIG.xd='<figure><svg viewBox="0 0 620 190" role="img" aria-label="이해 게이�
       ['p','<strong>이해도가 실제로 올라갔는지는 잴 수 없다.</strong> 확인한 것은 "게이트가 막는가"까지다. 퀴즈를 푼 사람이 정말 이해했는지, 퀴즈 다섯 문항이 핵심을 짚었는지는 판정 대상이 아니고 매번 다르다.'],
       ['p','그리고 <strong>작성자 본인에게만</strong> 걸린다. 남의 PR을 리뷰할 때 어떻게 끼울지는 정하지 않았다. 혼자 작업하는 지금은 이걸로 충분하지만, 서로의 PR을 리뷰하는 흐름이 되면 다시 볼 지점이다.'],
       ['honest','우회할 수 있다|훅은 에이전트의 도구 호출을 막는 것이지 사람이 직접 치는 <code>git push --no-verify</code>를 막지 못한다. 서버 쪽 검사로 보완해야 하는데 아직 안 했다. 애초에 <b>스스로에게 거는 장치</b>라 우회를 막는 데 힘을 쓸 이유가 크지 않기도 하다.']
-    ],meta:'Python stdlib만 · 임시 저장소로 11개 경로 검증 · 원 아이디어: Geoffrey Litt, explain-diff · 2026-09-15'},
+    ],meta:'Python stdlib만 · 임시 저장소로 11개 경로 검증 · 원 아이디어: <a href="https://gist.github.com/geoffreylitt/a29df1b5f9865506e8952488eac3d524" target="_blank" rel="noopener noreferrer">Geoffrey Litt, explain-diff</a> · 2026-09-15'},
 
   'write-skew':{grp:'데이터베이스',t:'보장 한도를 넘겨 지급됐는데 잘못 승인된 건이 없다',crumb:'PostgreSQL 16 · 격리 수준',
     lede:'연간 보장 한도가 500만 원인 계약에 청구 두 건이 <strong>거의 동시에</strong> 들어왔다. 각각 300만 원. 두 건 모두 한도를 확인하고 승인됐고, 지급액은 600만 원이 됐다. 심사 로그를 뒤져도 <strong>잘못 승인된 건이 하나도 없다.</strong>',
@@ -859,7 +859,7 @@ FIG.xd='<figure><svg viewBox="0 0 620 190" role="img" aria-label="이해 게이�
       ['p','아래는 그 셋에 답하려고 <strong>같은 시나리오를 11가지 방법으로 돌려본 기록</strong>이다. 결론부터 말하면 흔히 말하는 처방 중 둘은 실제로는 막지 못했다.'],
 
       ['h2','가장 작게 재현한다'],
-      ['p','청구 심사는 변수가 많으니 <strong>규칙 하나만 남긴 최소 형태</strong>로 줄인다. 교과서(Kleppmann, <i>DDIA</i>)의 당직표 예제가 정확히 같은 구조라 그대로 썼다. 실제 실험 테이블도 이것이다. 규칙은 <strong>당직은 언제나 최소 한 명.</strong> alice와 bob이 함께 당직을 서던 중 거의 동시에 퇴근을 신청한다. 각자의 화면에는 당직이 두 명이라고 떠 있으니 둘 다 "나 하나쯤 빠져도 되겠다"고 판단한다. 잠시 후 당직은 아무도 없다.'],
+      ['p','청구 심사는 변수가 많으니 <strong>규칙 하나만 남긴 최소 형태</strong>로 줄인다. 교과서(<a href="https://dataintensive.net/" target="_blank" rel="noopener noreferrer">Kleppmann, <i>DDIA</i></a>)의 당직표 예제가 정확히 같은 구조라 그대로 썼다. 실제 실험 테이블도 이것이다. 규칙은 <strong>당직은 언제나 최소 한 명.</strong> alice와 bob이 함께 당직을 서던 중 거의 동시에 퇴근을 신청한다. 각자의 화면에는 당직이 두 명이라고 떠 있으니 둘 다 "나 하나쯤 빠져도 되겠다"고 판단한다. 잠시 후 당직은 아무도 없다.'],
       ['fig','skew'],
       ['demo','직접 인터리빙을 바꿔보기'],
       ['p','보장 한도와 대응시키면 이렇다. <strong>"당직 2명"이 "남은 한도 500만 원"</strong>이고, <strong>alice·bob 행을 각각 고치는 것</strong>이 <strong>청구 두 건을 각각 승인 처리하는 것</strong>이다. 대상 행이 다르다는 점이 핵심이라 한도 컬럼 하나를 같이 깎았다면 이야기가 달라진다. 뒤에서 다시 나온다.'],
@@ -891,7 +891,7 @@ FIG.xd='<figure><svg viewBox="0 0 620 190" role="img" aria-label="이해 게이�
       ['p','맨 앞의 증상으로 돌아가면, 보장 한도 초과 지급도 자동이체 한도 초과도 포인트 이중 소진도 전부 ⑧이 다루는 모양이다. <strong>규칙이 "합계가 얼마 이하"인 경우</strong>다. 그럴 때는 합계를 세지 말고 <strong>합계를 담은 행을 두고 그 행을 같이 고치면</strong> 된다. 다만 공짜는 아니다. <strong>그 행이 병목</strong>이 된다. 당직을 바꾸는 모든 트랜잭션이 그 한 행을 거치므로 동시성이 그 행의 처리량으로 묶인다. 당직표처럼 변경이 드문 데이터면 괜찮고, 인기 상품 재고처럼 초당 수백 건이 몰리는 곳이면 이 한 행이 전체를 잡는다.'],
       ['p','⑪의 대기도 무한정은 아니다. 락을 잡은 트랜잭션이 길어지면 뒤가 모두 밀리고, 잠그는 순서가 엇갈리면 데드락이 된다. <strong>어느 쪽을 골라도 없어지는 비용은 없고 옮겨질 뿐이다.</strong>'],
       ['honest','재보지 않은 것|경합이 실제로 몰릴 때 ⑧의 카운터 행과 ⑪의 락 대기가 각각 처리량을 얼마나 깎는지는 재지 않았다. 이 실험은 두 세션을 손으로 인터리빙한 것이라 <b>정확성만 판정할 수 있고 처리량은 판정할 수 없다.</b> 부하를 걸어 재보는 것은 다음 과제로 남긴다.']
-    ],meta:'PostgreSQL 16.15 · 두 세션을 FIFO로 인터리빙해 측정 · 11가지 방법 3회 반복, 전 행 동일 · 2026-09-14<br>당직 의사 시나리오는 Martin Kleppmann, <i>Designing Data-Intensive Applications</i>의 write skew 예제를 따랐다. 측정치는 직접 실행한 값이다.'},
+    ],meta:'PostgreSQL 16.15 · 두 세션을 FIFO로 인터리빙해 측정 · 11가지 방법 3회 반복, 전 행 동일 · 2026-09-14<br>당직 의사 시나리오는 <a href="https://dataintensive.net/" target="_blank" rel="noopener noreferrer">Martin Kleppmann, <i>Designing Data-Intensive Applications</i></a>의 write skew 예제를 따랐다. 측정치는 직접 실행한 값이다.'},
   'race':{grp:'Java',t:'CI는 초록불인데 운영에서만 숫자가 안 맞는다',crumb:'Java 17 · 동시성',
     lede:'정산 배치 합계가 가끔 틀린다. <strong>로컬에서도 CI에서도 재현되지 않는다.</strong> 운영에서, 그것도 트래픽이 몰리는 시간대에만 나온다.',
     stats:[{k:'100만 회 반복',v:'30/30 실패',c:'bad',d:'8스레드'},{k:'1천 회 반복',v:'0/20 실패',c:'good',d:'코드는 그대로인데'},{k:'최대 유실',v:'82.8%',c:'bad',d:'800만 중 662만'}],
