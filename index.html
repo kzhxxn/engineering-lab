@@ -144,8 +144,11 @@
 
   /* ══ 주제 태그 ══ */
   .tagbar{display:flex; flex-wrap:wrap; gap:0 22px; align-items:baseline;
-          margin:0 0 var(--sec); padding-bottom:14px; max-width:var(--col);
-          border-bottom:1px solid var(--line-2)}
+          padding-bottom:12px; max-width:var(--col)}
+  .tagbar+.tagbar{padding-top:10px; border-top:1px solid var(--line-2)}
+  .tagbars{margin:0 0 var(--sec); padding-bottom:2px; max-width:var(--col);
+           border-bottom:1px solid var(--line-2)}
+  .tagbar.techrow button{font-family:var(--mono); font-size:12.5px}
   .tagbar .lbl{font-size:10.5px; letter-spacing:.13em; text-transform:uppercase;
                color:var(--muted); font-family:var(--sans); font-weight:600; margin-right:4px}
   .tagbar button{background:none; border:0; padding:6px 0; cursor:pointer; font:inherit;
@@ -154,6 +157,9 @@
   .tagbar button.on{color:var(--ink); font-weight:600}
   .tagbar button .n{font-family:var(--mono); font-size:11px; color:var(--line); margin-left:5px}
   .tagbar button.on .n{color:var(--steel)}
+  .pill.tech{font-family:var(--mono); font-size:11.5px; letter-spacing:0;
+             text-transform:none; color:var(--muted)}
+  .tile:hover .pill.tech{color:var(--ink-2)}
   .pill.tag{font-size:13.5px; letter-spacing:-.005em; text-transform:none;
             font-family:var(--sans); color:var(--ink-2); font-weight:500}
   .tile:hover .pill.tag{color:var(--ink)}
@@ -838,7 +844,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
 
   /* ───────────────── pages ───────────────── */
   var PAGES={
-  'ssr-auth':{grp:'프론트엔드',t:'토큰을 브라우저에서 숨기려면 어디까지 옮겨야 하나',crumb:'Node 20 · SSR 인증',tags:['경계 설계','보안'],
+  'ssr-auth':{grp:'프론트엔드',t:'토큰을 브라우저에서 숨기려면 어디까지 옮겨야 하나',crumb:'Node 20 · SSR 인증',tech:['Node.js'],tags:['경계 설계','보안'],
     lede:'보험 도메인이라 <strong>토큰이 브라우저 JS에 노출되면 안 된다.</strong> XSS 하나에 세션이 통째로 넘어가기 때문이다. 그런데 SSR과 CSR이 <strong>둘 다</strong> 인증된 API를 부른다. 이 둘을 동시에 만족시키려다 보니 결정이 연쇄로 따라왔다.',
     demo:'ssr-auth',
     body:[
@@ -896,7 +902,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['honest','범위 밖으로 둔 것|CSRF 방어, 쿠키 속성(<code>SameSite</code>·<code>Secure</code>), 로컬 개발 환경의 쿠키 제약(운영 도메인 쿠키를 로컬에서 못 쓰는 문제), 깜빡임, 스트리밍 SSR. 마지막은 특히 <b>이미 flush된 청크를 되돌릴 수 없어</b> 경계 논의가 통째로 달라진다. BFF 한 홉의 비용(1~2ms)도 로컬 루프백이라 실제 환경을 말해주지 못한다.'],
       ['p','시나리오는 서버 렌더링을 쓰는 서비스에서 <strong>인증 판단을 어디에 둘지 정해야 했던 상황</strong>에서 가져왔다. 서비스 이름과 경로는 쓰지 않았고 결정의 연쇄만 일반형으로 옮겼다.']
     ],meta:'Node 20 · 표준 http 모듈만 · refresh 호출 횟수는 N=1·3·10·25·50에서 결정적, 2회 반복 동일 · 2026-09-14'},
-  'ime':{grp:'프론트엔드',t:'한글만 깨지는데 영문 테스트는 다 통과한다',crumb:'Chrome · IME 조합',tags:['재현 조건'],
+  'ime':{grp:'프론트엔드',t:'한글만 깨지는데 영문 테스트는 다 통과한다',crumb:'Chrome · IME 조합',tech:['브라우저','Node.js'],tags:['재현 조건'],
     lede:'이름 입력칸에서 한글이 깨진다는 제보가 들어왔다. 재현해보면 안드로이드 웹뷰 첫 입력에서 잘 난다. 그런데 <strong>테스트도 리뷰도 전부 통과한 변경</strong>이었다.',
     demo:'ime',
     body:[
@@ -947,7 +953,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','시나리오는 이름 입력란에서 한글 조합이 깨진다는 제보를 받고 고쳤던 건에서 가져왔다. 컴포넌트 이름과 저장소는 쓰지 않았고 <strong>왕복 구조만 남겼다</strong>.']
     ],meta:'Chrome / macOS · 프레임워크 없이 Node 표준 http로 서빙 · 커밋 횟수는 결정적 · 2026-09-15'},
 
-  'xd':{grp:'도구',t:'내가 짜지 않은 코드가 내 PR로 올라간다',crumb:'Python · PR 전 이해 게이트',tags:['경계 설계'],
+  'xd':{grp:'도구',t:'내가 짜지 않은 코드가 내 PR로 올라간다',crumb:'Python · PR 전 이해 게이트',tech:['Python','Git'],tags:['경계 설계'],
     lede:'에이전트가 코드를 쓰고 같은 에이전트가 리뷰한다. 머지도 된다. 그런데 <strong>PR이 쌓일수록 내 저장소인데 내가 제일 모르는 상태</strong>로 간다. 코드는 남는데 이해가 안 남는다.',
     demo:'xd',
     body:[
@@ -987,7 +993,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','이 게이트는 예시가 아니라 <strong>실제로 만들어 팀에 돌린 것</strong>이다. 저장소와 티켓 번호는 쓰지 않았고 동작만 옮겼다.']
     ],meta:'Python stdlib만 · 임시 저장소로 11개 경로 검증 · 원 아이디어: <a href="https://gist.github.com/geoffreylitt/a29df1b5f9865506e8952488eac3d524" target="_blank" rel="noopener noreferrer">Geoffrey Litt, explain-diff</a> · 2026-09-15'},
 
-  'dom':{grp:'프론트엔드',t:'체크박스를 눌렀더니 화면 전체가 날아갔다',crumb:'Chrome · DOM 개입',tags:['재현 조건','경계 설계'],
+  'dom':{grp:'프론트엔드',t:'체크박스를 눌렀더니 화면 전체가 날아갔다',crumb:'Chrome · DOM 개입',tech:['브라우저'],tags:['재현 조건','경계 설계'],
     lede:'입력하던 값까지 통째로 사라진다. 그런데 <strong>재현이 안 된다.</strong> 같은 버튼을 아무리 눌러도 멀쩡하다. 조건이 하나 더 있었고, 그건 우리 코드 밖에 있었다.',
     demo:'dom',
     body:[
@@ -1034,7 +1040,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['honest','여기서 잰 것과 안 잰 것|실제 번역 기능이 아니라 <b>번역기가 하는 DOM 조작</b>(텍스트 노드를 font로 감싸기)을 코드로 똑같이 했다. 실제 번역기는 속성 번역·노드 분할·비동기 적용까지 하는데 그 차이는 안 봤다. 리액트도 쓰지 않았다. 커밋 단계의 DOM 호출만 떼어냈으므로, 실제 재조정이 어떤 기준 노드를 고르는지는 버전에 따라 다를 수 있다. 광고 차단기나 비밀번호 관리자도 같은 계열일 것이라고 적었지만 <b>확인한 것은 번역 패턴 하나뿐</b>이다.']
     ],meta:'Chrome / macOS · 프레임워크 없이 DOM 호출만 · 조건이 같으면 결과도 같다(결정적) · 2026-09-15'},
 
-  'write-skew':{grp:'데이터베이스',t:'보장 한도를 넘겨 지급됐는데 잘못 승인된 건이 없다',crumb:'PostgreSQL 16 · 격리 수준',tags:['동시성','데이터 정합'],
+  'write-skew':{grp:'데이터베이스',t:'보장 한도를 넘겨 지급됐는데 잘못 승인된 건이 없다',crumb:'PostgreSQL 16 · 격리 수준',tech:['PostgreSQL'],tags:['동시성','데이터 정합'],
     lede:'연간 보장 한도가 500만 원인 계약에 청구 두 건이 <strong>거의 동시에</strong> 들어왔다. 각각 300만 원. 두 건 모두 한도를 확인하고 승인됐고, 지급액은 600만 원이 됐다. 심사 로그를 뒤져도 <strong>잘못 승인된 건이 하나도 없다.</strong>',
     demo:true,
     body:[
@@ -1077,7 +1083,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','⑪의 대기도 무한정은 아니다. 락을 잡은 트랜잭션이 길어지면 뒤가 모두 밀리고, 잠그는 순서가 엇갈리면 데드락이 된다. <strong>어느 쪽을 골라도 없어지는 비용은 없고 옮겨질 뿐이다.</strong>'],
       ['honest','재보지 않은 것|경합이 실제로 몰릴 때 ⑧의 카운터 행과 ⑪의 락 대기가 각각 처리량을 얼마나 깎는지는 재지 않았다. 이 실험은 두 세션을 손으로 인터리빙한 것이라 <b>정확성만 판정할 수 있고 처리량은 판정할 수 없다.</b> 부하를 걸어 재보는 것은 다음 과제로 남긴다.']
     ],meta:'PostgreSQL 16.15 · 두 세션을 FIFO로 인터리빙해 측정 · 11가지 방법 3회 반복, 전 행 동일 · 2026-09-14<br>당직 의사 시나리오는 <a href="https://dataintensive.net/" target="_blank" rel="noopener noreferrer">Martin Kleppmann, <i>Designing Data-Intensive Applications</i></a>의 write skew 예제를 따랐다. 측정치는 직접 실행한 값이다.'},
-  'race':{grp:'Java',t:'CI는 초록불인데 운영에서만 숫자가 안 맞는다',crumb:'Java 17 · 동시성',tags:['동시성','재현 조건'],
+  'race':{grp:'Java',t:'CI는 초록불인데 운영에서만 숫자가 안 맞는다',crumb:'Java 17 · 동시성',tech:['Java'],tags:['동시성','재현 조건'],
     lede:'정산 배치 합계가 가끔 틀린다. <strong>로컬에서도 CI에서도 재현되지 않는다.</strong> 운영에서, 그것도 트래픽이 몰리는 시간대에만 나온다.',
     demo:'race',
     body:[
@@ -1107,7 +1113,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','더 중요한 것은 그 위의 선택이다. <strong>동기화를 최적화하기 전에 공유를 없앨 수 있는지 본다.</strong> 스레드마다 따로 세고 마지막에 합치면 동기화가 0회다. <code>LongAdder</code>가 빠른 이유도 결국 그것을 안에서 하고 있기 때문이다.'],
       ['honest','재현하지 못한 것|명령어 재배열(JMM reordering)은 <b>3,000회를 시도했지만 한 번도 관측하지 못했다.</b> arm64의 메모리 모델이 강한 탓으로 보인다. 명세상 허용되는 동작이므로 "관측되지 않았다"를 "일어나지 않는다"로 읽어서는 안 된다. x86이 아닌 환경이나 다른 JVM에서는 다를 수 있다.']
     ],meta:'Java 17 (Zulu) · 8스레드 · 각 방법 5회 중앙값 · 2026-09-11'},
-  'ownership':{grp:'Rust',t:'같은 레이스를 빌드 단계에서 잡을 수 있나',crumb:'Rust 1.98 · 소유권',tags:['동시성'],
+  'ownership':{grp:'Rust',t:'같은 레이스를 빌드 단계에서 잡을 수 있나',crumb:'Rust 1.98 · 소유권',tech:['Rust','Java'],tags:['동시성'],
     lede:'앞 글에서 본 레이스는 <strong>운영에서만, 그것도 운이 나빠야</strong> 드러났다. 테스트로는 못 잡는다면 그 앞 단계: 컴파일에서 잡을 수는 없을까.',
     body:[
       ['h2','초록불이 증거가 못 된다면 무엇이 증거인가'],
@@ -1134,7 +1140,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','업무 스택을 바꾸자는 얘기가 아니다. 가져갈 것은 질문 하나다. "이 데이터는 공유되나, 변경되나, 둘 다인가." Rust는 그걸 안 적으면 컴파일을 안 해주고, Java·Kotlin·TypeScript는 안 적어도 돌아간다. <strong>돌아가는 쪽에서 그 질문을 스스로 하게 되는 것</strong>이 이 실험의 실제 소득이다.'],
       ['honest','재보지 않은 것|<code>Rc</code>/<code>RefCell</code>처럼 빌림 검사를 <b>런타임으로 미루는</b> 경우는 다루지 않았다. 그 경로를 쓰면 같은 규칙이 패닉으로 강제되는데, 그러면 다시 "돌려봐야 안다"는 자리로 돌아온다. 어디까지가 컴파일 타임 보장인지의 경계는 아직 안 그어봤다.']
     ],meta:'rustc 1.98.1 · 8스레드 × 100만 회 · cargo 없이 rustc 단독 · 2026-09-11'},
-  'oom':{grp:'Java',t:'힙을 늘렸는데 또 OOM으로 죽는다',crumb:'Java 17 · JVM 메모리',tags:['진단'],
+  'oom':{grp:'Java',t:'힙을 늘렸는데 또 OOM으로 죽는다',crumb:'Java 17 · JVM 메모리',tech:['Java'],tags:['진단'],
     lede:'배치 서버가 며칠에 한 번씩 <code>OutOfMemoryError</code>로 재기동된다. 힙을 두 배로 늘렸더니 <strong>주기만 길어지고 또 죽었다.</strong> 늘려서 될 문제가 아니라는 뜻이다.',
     body:[
       ['h2','힙을 늘려도 안 되면 총량이 원인이 아니다'],
@@ -1160,7 +1166,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','현실에서 이 자리를 차지하는 단골은 셋이다. 정리되지 않는 <code>static</code> 캐시, 해제하지 않은 리스너, 그리고 <strong>스레드풀에서 살아남는 <code>ThreadLocal</code></strong>. 셋 다 "요청이 끝나면 사라질 것"이라고 가정했는데 실제로는 애플리케이션 수명만큼 사는 것들이다.'],
       ['honest','재보지 않은 것|누수 없이도 일어나는 OOM: 순간적으로 큰 결과 집합을 메모리에 올리는 경우: 은 다루지 않았다. 이 실험은 <b>도달 가능성이 원인인 경우</b>만 재현했다. 힙 덤프에서 지배 트리(dominator tree)를 실제로 읽어 범인을 특정하는 절차도 도구 없이 확인만 하고 넘어갔다.']
     ],meta:'Java 17 (Zulu) · -Xmx32m / -Xmx64m · G1GC · javac 단독 빌드 · 2026-09-11'},
-  'self-invocation':{grp:'Java',t:'예외가 났는데 데이터가 절반만 남았다',crumb:'Java 17 · 프록시·트랜잭션',tags:['데이터 정합'],
+  'self-invocation':{grp:'Java',t:'예외가 났는데 데이터가 절반만 남았다',crumb:'Java 17 · 프록시·트랜잭션',tech:['Java'],tags:['데이터 정합'],
     lede:'처리 도중 예외가 났으니 전부 롤백됐어야 하는데 <strong>2건이 그대로 남아 있다.</strong> 코드를 열어보면 <code>@Transactional</code>은 분명히 붙어 있다.',
     body:[
       ['h2','애노테이션은 누가 언제 읽나'],
@@ -1185,7 +1191,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['note','같은 모양의 다른 함정들|프록시를 지나야 동작하는 것은 트랜잭션만이 아니다. <code>@Cacheable</code>, <code>@Async</code>, <code>@Retryable</code>도 같은 구조라 내부 호출에서 똑같이 조용히 사라진다. <b>"애노테이션이 붙었는데 동작을 안 한다"</b>는 증상을 보면 호출 경로부터 의심하는 게 빠르다.'],
       ['honest','이것은 Spring이 아니다|JDK 동적 프록시와 리플렉션으로 <b>동작 원리만 재현</b>한 것이다. CGLIB 기반 프록시, 전파 옵션(<code>REQUIRES_NEW</code> 등), 빈 스코프와 생명주기는 구현하지 않았다. 순환 의존성은 생성자 주입에서는 기동 실패, 필드 주입에서는 통과하는 것까지만 확인했다. 실제 Spring의 동작이 이와 다른 지점이 있을 수 있다.']
     ],meta:'Java 17 (Zulu) · JDK 동적 프록시 + 리플렉션으로 미니 IoC/AOP 직접 구현 · 2026-09-11'},
-  'nplus1':{grp:'Java',t:'목록 API가 DB를 스물한 번 호출하고 있었다',crumb:'JDBC · 데이터 접근',tags:['진단'],
+  'nplus1':{grp:'Java',t:'목록 API가 DB를 스물한 번 호출하고 있었다',crumb:'JDBC · 데이터 접근',tech:['Java','PostgreSQL'],tags:['진단'],
     lede:'로컬에서는 8ms라 아무도 눈치채지 못했다. 운영에 올리자 같은 화면이 <strong>수백 ms</strong>가 됐다. 코드는 한 줄도 안 바뀌었고 데이터만 늘었다.',
     demo:'nplus1',
     body:[
@@ -1215,7 +1221,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','ORM을 쓰든 안 쓰든 <strong>쿼리 카운터를 먼저 붙인다.</strong> "N+1이 있는 것 같다"는 의심은 검증할 수 없지만 "이 요청이 201번 보낸다"는 숫자는 검증된다. 그 다음 부모 건수를 늘려가며 횟수가 비례해서 오르는지 본다. 오르면 N+1이고, 안 오르면 다른 문제다.'],
       ['p','고를 때는 자식이 몇 개인지가 기준이다. 자식이 적으면 조인, 많거나 페이징이 필요하면 IN절 배치. 둘 다 안 맞으면 애초에 그 화면이 자식 데이터를 다 필요로 하는지 되묻는 게 빠르다.']
     ],meta:'PostgreSQL 16 + JDBC 42.7.4 · 쿼리 카운터 계측 · 배치는 5회 중앙값 · 2026-09-11'},
-  'index':{grp:'데이터베이스',t:'인덱스를 만들었는데 쿼리가 그대로다',crumb:'PostgreSQL 16 · 실행 계획',tags:['진단'],
+  'index':{grp:'데이터베이스',t:'인덱스를 만들었는데 쿼리가 그대로다',crumb:'PostgreSQL 16 · 실행 계획',tech:['PostgreSQL'],tags:['진단'],
     lede:'계약 조회가 느려서 인덱스를 붙였는데 <strong>실행 시간이 거의 그대로다.</strong> <code>EXPLAIN</code>을 봐도 인덱스를 타는 것처럼 보인다. 인덱스가 잘못된 걸까, 아니면 원래 이런 걸까.',
     demo:'index',
     body:[
@@ -1277,7 +1283,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['honest','하마터면 정반대 결론을 쓸 뻔했다|계획을 강제하려고 <code>enable_nestloop=off</code>를 켰더니 비용이 1e10으로 부풀어 <b>JIT 컴파일 임계값을 넘었다.</b> 컴파일에만 54.7ms가 붙어 0.23ms짜리 쿼리가 64.9ms로 보였고, "옵티마이저가 227배 옳았다"고 적을 뻔했다. 이후 모든 측정에 <code>jit=off</code>를 고정했다. <b>측정 도구가 측정 대상을 바꾸는 경우가 있다.</b>'],
       ['honest','재보지 않은 것|쓰기 비용은 재지 않았다. 인덱스는 읽기를 빠르게 하는 대신 <code>INSERT</code>·<code>UPDATE</code>마다 갱신 비용을 물리는데, 이 실험은 조회만 다뤘다. "인덱스를 몇 개까지 다는 게 이득인가"는 여기서 답할 수 없다.']
     ],meta:'PostgreSQL 16.15 · 50만 행 · jit=off 고정 · 비용 모델 재현은 병렬 스캔 off · 2026-09-11 / 2026-09-15'},
-  'wal':{grp:'데이터베이스',t:'커밋 응답을 받았는데 서버가 죽으면',crumb:'PostgreSQL 16 · WAL',tags:['데이터 정합'],
+  'wal':{grp:'데이터베이스',t:'커밋 응답을 받았는데 서버가 죽으면',crumb:'PostgreSQL 16 · WAL',tech:['PostgreSQL'],tags:['데이터 정합'],
     lede:'배포 중에 DB 컨테이너가 내려갔다. 직전에 <strong>접수 완료 응답을 받은 청구 건</strong>은 살아 있을까. 그리고 그 보장은 공짜인가.',
     body:[
       ['h2','커밋이 끝났다는 말이 약속하는 것'],
@@ -1303,7 +1309,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','접속 로그, 화면 이벤트, 배치로 다시 만들 수 있는 집계처럼 원본이 다른 곳에 있는 데이터는 꺼도 된다. 청구 접수나 보험료 출금처럼 응답이 곧 약속인 데이터는 켜둔다. 전역 설정 대신 트랜잭션 단위로 <code>SET LOCAL synchronous_commit = off</code>를 쓰면 섞어 쓸 수 있다.'],
       ['honest','재현하지 못한 것|<code>synchronous_commit=off</code>에서 데이터가 실제로 유실되는 장면은 <b>만들어내지 못했다.</b> <code>docker kill</code>은 postgres 프로세스만 죽일 뿐 OS 페이지 캐시는 살아남아서, 커널이 나중에 디스크로 내려보내 준 것이다. 진짜로 재현하려면 전원을 끊거나 VM을 강제 종료해야 한다. 대신 아직 디스크에 닿지 않은 로그의 양(<code>insert_lsn - flush_lsn</code>)을 재어 <b>위험 구간을 수치로</b> 남겼다.']
     ],meta:'PostgreSQL 16.15 · docker kill로 크래시 유발 · pgbench 측정 · 2026-09-11'},
-  'tuning':{grp:'데이터베이스',t:'계약 목록이 뒤 페이지로 갈수록 느려진다',crumb:'PostgreSQL 16 · 튜닝',tags:['진단'],
+  'tuning':{grp:'데이터베이스',t:'계약 목록이 뒤 페이지로 갈수록 느려진다',crumb:'PostgreSQL 16 · 튜닝',tech:['PostgreSQL'],tags:['진단'],
     lede:'첫 페이지는 빠른데 뒤로 갈수록 느려진다. 데이터가 늘면서 <strong>같은 화면이 작년보다 느려졌다</strong>는 제보도 같이 들어온다. 인덱스는 이미 있다.',
     body:[
       ['h2','느리다는 말 하나에 원인은 다섯이었다'],
@@ -1329,7 +1335,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['note','다섯 사례 모두 결과를 대조했다|개선 전후 결과 집합의 <b>md5 해시가 일치하는지</b> 매번 확인했다. 특히 OR을 UNION으로 바꾸거나 서브쿼리를 조인으로 펴는 변형은 <b>중복 행이 생기거나 사라지기 쉬워서</b>, 이 확인이 없으면 성능 개선과 버그를 구분할 수 없다.'],
       ['honest','재보지 않은 것|여기 수치는 <b>한 번씩 잰 값</b>이고 Docker 환경이라 재실행하면 ±20%까지 흔들린다. 배수의 크기 순서(768 &gt; 261 &gt; 44 &gt; 7 &gt; 5)는 반복해도 유지됐지만 개별 ms는 근거로 삼지 않는다. 또한 keyset 페이징은 <b>임의 페이지로 점프할 수 없다</b>는 제약이 있는데, 그 제약이 실제 화면 요구사항과 충돌하는지는 이 실험에서 다루지 않았다.']
     ],meta:'PostgreSQL 16.15 · EXPLAIN (ANALYZE, BUFFERS) · 결과 집합 md5 대조 · 2026-09-11'},
-  'gate':{grp:'도구',t:'로컬에서 통과했는데 CI에서 떨어진다',crumb:'shell · pre-push 게이트',tags:['경계 설계'],
+  'gate':{grp:'도구',t:'로컬에서 통과했는데 CI에서 떨어진다',crumb:'shell · pre-push 게이트',tech:['Shell','Git'],tags:['경계 설계'],
     lede:'push하고 나서야 CI가 빨간불이다. 로컬에서는 분명히 통과했다. <strong>양쪽이 서로 다른 검사를 돌고 있기 때문</strong>인데, 그 사실을 알아차리는 데는 매번 왕복 한 번이 든다.',
     body:[
       ['h2','규칙이 두 곳에 적혀 있으면 반드시 어긋난다'],
@@ -1354,7 +1360,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['honest','재보지 않은 것|게이트가 실제로 사고를 막은 횟수는 세지 않았다. 시크릿 검사가 잡은 것도 <b>내가 일부러 심은 것뿐</b>이라, 오탐률이나 실전 적중률은 알 수 없다. 그리고 <code>--no-verify</code>로 우회할 수 있다는 점은 그대로다. 이건 서버 쪽 검사로 보완해야 하는데 아직 안 했다.'],
       ['p','이 게이트는 남의 사례가 아니라 <strong>이 아카이브를 담고 있는 학습 저장소에 실제로 걸어 둔 것</strong>이다. 지금도 push 할 때마다 돈다.']
     ],meta:'POSIX sh · git core.hooksPath · GitHub Actions와 동일 스크립트 공유 · 2026-09-11'},
-  'cipher':{grp:'보안·검증',t:'제휴사에 식별번호를 암호화해 보내야 했다',crumb:'Node 22 · JDK 17 · 블록 암호 모드',tags:['보안'],
+  'cipher':{grp:'보안·검증',t:'제휴사에 식별번호를 암호화해 보내야 했다',crumb:'Node 22 · JDK 17 · 블록 암호 모드',tech:['Node.js','Java'],tags:['보안'],
     lede:'연동 규격에 적힌 것은 "개인 식별번호는 암호화해서 전송" 한 줄이었다. 쓰고 있던 모듈을 열어보니 <strong>mode는 ECB, IV는 빈 문자열, 키는 클라이언트 환경변수</strong>였다. 셋 다 바꿔야 하는데 무엇부터 손대야 할지가 안 보였다.',
     body:[
       ['honest','이 글의 숫자는 언제 잰 것인가|당시 판단은 ECB를 버리고 CBC로 가는 데까지였다. 아래 숫자는 그 뒤 2026-09-15에 다시 돌려 얻은 값이다.'],
@@ -1400,7 +1406,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','남은 것은 키다. 클라이언트에서 암호화하려면 키가 클라이언트에 있어야 하고, 그러면 어떤 난독화로도 은닉되지 않는다. 이건 모드로 풀리는 문제가 아니라 암호화를 어디서 하느냐의 문제라 이 랩에서는 재지 않았다. 성능도 마찬가지로 재지 않았다. GCM과 CBC의 처리량은 선택 근거로 자주 언급되는데 따로 재야 하는 값이다.'],
       ['p','시나리오는 제휴사 연동에서 개인 식별정보를 전송해야 했던 상황에서 가져왔고, 식별번호 실값은 쓰지 않았다. 평문은 전부 계약 식별자 형태로 바꿨다. 규격 출처는 <a href="https://csrc.nist.gov/pubs/sp/800/38/d/final" target="_blank" rel="noreferrer">NIST SP 800-38D</a>다.']
     ],meta:'Node 22 · Zulu JDK 17 · 의존성 0 (표준 crypto만) · 2026-09-15'},
-  'checkdigit':{grp:'보안·검증',t:'실재하지 않는 번호인데 가입이 진행됐다',crumb:'Node 22 · 체크 디짓',tags:['데이터 정합','보안'],
+  'checkdigit':{grp:'보안·검증',t:'실재하지 않는 번호인데 가입이 진행됐다',crumb:'Node 22 · 체크 디짓',tech:['Node.js'],tags:['데이터 정합','보안'],
     lede:'프론트 검증을 통과한 값이 실명인증 요청까지 들어갔고, 사용자는 "이런 번호가 왜 되냐"고 물었다. 웹과 앱 전부 같았으니 채널별 로직 차이가 아니다. 로직 오류를 찾으러 들어갔는데 <strong>로직은 맞았다. 틀린 건 검증에 건 기대였다.</strong>',
     body:[
       ['honest','이 글의 숫자는 언제 잰 것인가|당시에는 원인을 정리하고 사건을 닫는 데까지였다. 아래 숫자는 그 뒤 2026-09-15에 다시 돌려 얻은 값이다.'],
@@ -1441,7 +1447,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','시나리오는 검증을 통과한 값이 인증 단계까지 들어갔던 사건에서 가져왔다. <strong>식별번호 실값과 그 구조는 쓰지 않았고</strong> 검증 방식만 일반형으로 옮겼다. 번호는 전부 무작위 생성이다.']
     ],meta:'Node 22 · 고정 시드 · 표본 20만 / 2만 · 2026-09-15'},
 
-  'dupsubmit':{grp:'프론트엔드',t:'결제 버튼을 잠갔는데 같은 건이 여러 번 만들어졌다',crumb:'Node 22 · 중복 제출',tags:['동시성','재현 조건'],
+  'dupsubmit':{grp:'프론트엔드',t:'결제 버튼을 잠갔는데 같은 건이 여러 번 만들어졌다',crumb:'Node 22 · 중복 제출',tech:['Node.js'],tags:['동시성','재현 조건'],
     lede:'제출 중에는 버튼을 비활성화하고 라벨을 "처리 중"으로 바꿔 뒀다. 그런데도 중복 건이 생겼다. 막을 방법을 하나씩 얹다 보니 층이 넷이 됐는데, <strong>얹은 것과 막힌 것이 같지 않았다.</strong>',
     body:[
       ['honest','이 글의 숫자는 언제 잰 것인가|당시에는 방어를 얹고 배포하는 데까지였다. 아래 숫자는 그 뒤 2026-09-15에 다시 돌려 얻은 값이다.'],
@@ -1481,7 +1487,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','시나리오는 결제 직전 단계에서 반복 클릭으로 중복 요청이 나가던 상황에서 가져왔다. API 경로와 화면 이름은 쓰지 않았고 방어 방식만 일반형으로 옮겼다.']
     ],meta:'Node 22 · node:http · curl로 확인 가능 · 2026-09-15'}
 ,
-  'overload':{grp:'도구',t:'테스트가 하나씩 돌리면 통과하고 다 같이 돌리면 실패한다',crumb:'Node 22 · 10코어 · 동시성',tags:['재현 조건','진단'],
+  'overload':{grp:'도구',t:'테스트가 하나씩 돌리면 통과하고 다 같이 돌리면 실패한다',crumb:'Node 22 · 10코어 · 동시성',tech:['Node.js'],tags:['재현 조건','진단'],
     lede:'push 를 막는 검사가 계속 시간초과로 죽었다. 실패한 테스트를 따로 돌리면 멀쩡히 통과한다. 코드는 한 글자도 안 바뀌었고 어제까지 되던 것이 오늘 안 된다.',
     body:[
       ['h2','재현이 안 되는 실패는 조건이 코드 밖에 있다'],
@@ -1557,7 +1563,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
         var p=PAGES[k];
         // 제목에는 줄바꿈을 막으려고 넣은 U+00A0 이 섞여 있다. 검색어는 일반 공백으로
         // 들어오므로 비교 전에 같은 공백으로 맞춘다. 안 맞추면 "여러 번"이 안 걸린다.
-        return (p.t+' '+p.crumb+' '+(p.tags||[]).join(' ')+' '+plain(p.lede))
+        return (p.t+' '+p.crumb+' '+(p.tags||[]).join(' ')+' '+(p.tech||[]).join(' ')+' '+plain(p.lede))
           .replace(/\u00a0/g,' ').toLowerCase().indexOf(term)>=0;
       });
       if(!items.length) return;
@@ -1612,18 +1618,22 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
     if(!tagSel) h+=strip;
 
     // 그룹은 스택으로 나뉘어 있어서 "동시성" 같은 축은 흩어져 보인다. 그 축으로 한 번 더 자른다.
-    var counts={};
-    ORDER.forEach(function(k){ (PAGES[k].tags||[]).forEach(function(t){ counts[t]=(counts[t]||0)+1; }); });
-    var tagNames=Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; });
-    h+='<div class="tagbar"><span class="lbl">주제</span>'+
-      tagNames.map(function(t){
-        return '<button type="button" data-tag="'+esc(t)+'"'+(tagSel===t?' class="on"':'')+'>'+
-               esc(t)+'<span class="n">'+counts[t]+'</span></button>';
-      }).join('')+'</div>';
+    function bar(field, label, cls){
+      var counts={};
+      ORDER.forEach(function(k){ (PAGES[k][field]||[]).forEach(function(t){ counts[t]=(counts[t]||0)+1; }); });
+      return '<div class="tagbar '+cls+'"><span class="lbl">'+label+'</span>'+
+        Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; }).map(function(t){
+          return '<button type="button" data-tag="'+esc(t)+'"'+(tagSel===t?' class="on"':'')+'>'+
+                 esc(t)+'<span class="n">'+counts[t]+'</span></button>';
+        }).join('')+'</div>';
+    }
+    h+='<div class="tagbars">'+bar('tech','기술','techrow')+bar('tags','주제','')+'</div>';
 
     GRPS.forEach(function(g){
       var items=ORDER.filter(function(k){
-        return PAGES[k].grp===g && (!tagSel || (PAGES[k].tags||[]).indexOf(tagSel)>=0);
+        var p=PAGES[k];
+        return p.grp===g && (!tagSel ||
+          (p.tags||[]).indexOf(tagSel)>=0 || (p.tech||[]).indexOf(tagSel)>=0);
       });
       if(!items.length) return;
       h+='<section class="gsec"><h2>'+g+'</h2><div class="tiles">'+items.map(function(k){
@@ -1635,7 +1645,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
           '<span class="tm">'+
             (p.tags||[]).map(function(t){return '<span class="pill tag">'+esc(t)+'</span>'}).join('')+
             '<span class="sep"></span>'+
-            '<span class="pill">'+esc(p.crumb.split('·')[0].trim())+'</span>'+
+            (p.tech||[]).map(function(t){return '<span class="pill tech">'+esc(t)+'</span>'}).join('')+
             (WORK[k]?'<span class="pill work">실무에서</span>':'')+
             (p.demo?'<span class="pill live">직접 조작</span>':'')+
           '</span></span></a>';
