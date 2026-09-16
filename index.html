@@ -149,6 +149,8 @@
   .tagbars{margin:0 0 var(--sec); padding-bottom:2px; max-width:var(--col);
            border-bottom:1px solid var(--line-2)}
   .tagbar.techrow button{font-family:var(--mono); font-size:12.5px}
+  .tagnote{font-size:14.5px; color:var(--muted); line-height:1.7;
+           margin:calc(var(--sec) * -0.6) 0 var(--sec); max-width:var(--read)}
   .tagbar .lbl{font-size:10.5px; letter-spacing:.13em; text-transform:uppercase;
                color:var(--muted); font-family:var(--sans); font-weight:600; margin-right:4px}
   .tagbar button{background:none; border:0; padding:6px 0; cursor:pointer; font:inherit;
@@ -844,7 +846,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
 
   /* ───────────────── pages ───────────────── */
   var PAGES={
-  'ssr-auth':{grp:'프론트엔드',t:'토큰을 브라우저에서 숨기려면 어디까지 옮겨야 하나',crumb:'Node 20 · SSR 인증',tech:['Node.js'],tags:['경계 설계','보안'],
+  'ssr-auth':{grp:'프론트엔드',t:'토큰을 브라우저에서 숨기려면 어디까지 옮겨야 하나',crumb:'Node 20 · SSR 인증',tech:['Next.js','Node.js'],tags:['경계 설계','보안'],
     lede:'보험 도메인이라 <strong>토큰이 브라우저 JS에 노출되면 안 된다.</strong> XSS 하나에 세션이 통째로 넘어가기 때문이다. 그런데 SSR과 CSR이 <strong>둘 다</strong> 인증된 API를 부른다. 이 둘을 동시에 만족시키려다 보니 결정이 연쇄로 따라왔다.',
     demo:'ssr-auth',
     body:[
@@ -902,7 +904,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['honest','범위 밖으로 둔 것|CSRF 방어, 쿠키 속성(<code>SameSite</code>·<code>Secure</code>), 로컬 개발 환경의 쿠키 제약(운영 도메인 쿠키를 로컬에서 못 쓰는 문제), 깜빡임, 스트리밍 SSR. 마지막은 특히 <b>이미 flush된 청크를 되돌릴 수 없어</b> 경계 논의가 통째로 달라진다. BFF 한 홉의 비용(1~2ms)도 로컬 루프백이라 실제 환경을 말해주지 못한다.'],
       ['p','시나리오는 서버 렌더링을 쓰는 서비스에서 <strong>인증 판단을 어디에 둘지 정해야 했던 상황</strong>에서 가져왔다. 서비스 이름과 경로는 쓰지 않았고 결정의 연쇄만 일반형으로 옮겼다.']
     ],meta:'Node 20 · 표준 http 모듈만 · refresh 호출 횟수는 N=1·3·10·25·50에서 결정적, 2회 반복 동일 · 2026-09-14'},
-  'ime':{grp:'프론트엔드',t:'한글만 깨지는데 영문 테스트는 다 통과한다',crumb:'Chrome · IME 조합',tech:['브라우저','Node.js'],tags:['재현 조건'],
+  'ime':{grp:'프론트엔드',t:'한글만 깨지는데 영문 테스트는 다 통과한다',crumb:'Chrome · IME 조합',tech:['React','브라우저','Node.js'],tags:['재현 조건'],
     lede:'이름 입력칸에서 한글이 깨진다는 제보가 들어왔다. 재현해보면 안드로이드 웹뷰 첫 입력에서 잘 난다. 그런데 <strong>테스트도 리뷰도 전부 통과한 변경</strong>이었다.',
     demo:'ime',
     body:[
@@ -993,7 +995,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','이 게이트는 예시가 아니라 <strong>실제로 만들어 팀에 돌린 것</strong>이다. 저장소와 티켓 번호는 쓰지 않았고 동작만 옮겼다.']
     ],meta:'Python stdlib만 · 임시 저장소로 11개 경로 검증 · 원 아이디어: <a href="https://gist.github.com/geoffreylitt/a29df1b5f9865506e8952488eac3d524" target="_blank" rel="noopener noreferrer">Geoffrey Litt, explain-diff</a> · 2026-09-15'},
 
-  'dom':{grp:'프론트엔드',t:'체크박스를 눌렀더니 화면 전체가 날아갔다',crumb:'Chrome · DOM 개입',tech:['브라우저'],tags:['재현 조건','경계 설계'],
+  'dom':{grp:'프론트엔드',t:'체크박스를 눌렀더니 화면 전체가 날아갔다',crumb:'Chrome · DOM 개입',tech:['React','브라우저'],tags:['재현 조건','경계 설계'],
     lede:'입력하던 값까지 통째로 사라진다. 그런데 <strong>재현이 안 된다.</strong> 같은 버튼을 아무리 눌러도 멀쩡하다. 조건이 하나 더 있었고, 그건 우리 코드 밖에 있었다.',
     demo:'dom',
     body:[
@@ -1447,7 +1449,7 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
       ['p','시나리오는 검증을 통과한 값이 인증 단계까지 들어갔던 사건에서 가져왔다. <strong>식별번호 실값과 그 구조는 쓰지 않았고</strong> 검증 방식만 일반형으로 옮겼다. 번호는 전부 무작위 생성이다.']
     ],meta:'Node 22 · 고정 시드 · 표본 20만 / 2만 · 2026-09-15'},
 
-  'dupsubmit':{grp:'프론트엔드',t:'결제 버튼을 잠갔는데 같은 건이 여러 번 만들어졌다',crumb:'Node 22 · 중복 제출',tech:['Node.js'],tags:['동시성','재현 조건'],
+  'dupsubmit':{grp:'프론트엔드',t:'결제 버튼을 잠갔는데 같은 건이 여러 번 만들어졌다',crumb:'Node 22 · 중복 제출',tech:['React','Node.js'],tags:['동시성','재현 조건'],
     lede:'제출 중에는 버튼을 비활성화하고 라벨을 "처리 중"으로 바꿔 뒀다. 그런데도 중복 건이 생겼다. 막을 방법을 하나씩 얹다 보니 층이 넷이 됐는데, <strong>얹은 것과 막힌 것이 같지 않았다.</strong>',
     body:[
       ['honest','이 글의 숫자는 언제 잰 것인가|당시에는 방어를 얹고 배포하는 데까지였다. 아래 숫자는 그 뒤 2026-09-15에 다시 돌려 얻은 값이다.'],
@@ -1628,6 +1630,11 @@ FIG.dom='<figure><svg viewBox="0 0 620 215" role="img" aria-label="번역 개입
         }).join('')+'</div>';
     }
     h+='<div class="tagbars">'+bar('tech','기술','techrow')+bar('tags','주제','')+'</div>';
+    var NOTE={
+      'React':'주제가 리액트인 편이다. 재현은 프레임워크를 걷어내고 같은 DOM 호출·같은 왕복만 남겨서 했다.',
+      'Next.js':'주제가 Next 인 편이다. 재현은 Node 표준 http 로 같은 구조만 세워서 했다.'
+    };
+    if(tagSel && NOTE[tagSel]) h+='<p class="tagnote">'+NOTE[tagSel]+'</p>';
 
     GRPS.forEach(function(g){
       var items=ORDER.filter(function(k){
